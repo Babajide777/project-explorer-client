@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Button,
+  Col,
   Form,
   FormControl,
   Image,
@@ -8,25 +9,40 @@ import {
   Navbar,
   NavDropdown,
   NavItem,
+  Row,
 } from "react-bootstrap";
 
 const Header = (props) => {
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        bg="primary"
+        variant="dark"
+        className="mb-3 px-3"
+      >
         <Navbar.Brand href="/">Project Explorer</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Form inline>
-            <FormControl
-              type="text"
-              placeholder="Search Projects"
-              className="mr-sm-2"
-            />
-            <Button variant="outline-light">Search</Button>
-          </Form>
-          <Nav className="mr-auto">
-            <Nav.Link href="/projects/submit">Submit Project</Nav.Link>
+          <Nav className="me-auto">
+            <Form inline>
+              <Row>
+                <Col>
+                  <FormControl
+                    type="text"
+                    placeholder="Search Projects"
+                    className="mr-sm-2"
+                  />
+                </Col>
+                <Col>
+                  <Button variant="outline-light">Search</Button>
+                </Col>
+              </Row>
+            </Form>
+            <Nav.Link className="header-submit" href="/projects/submit">
+              Submit Project
+            </Nav.Link>
           </Nav>
           <Nav id="every">
             {props.us ? (
@@ -59,8 +75,6 @@ const Header = (props) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-
-      <br />
     </>
   );
 };
