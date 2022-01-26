@@ -1,4 +1,5 @@
 import React from "react";
+import { Github, Linkedin, Twitter } from "react-bootstrap-icons";
 
 const Footer = () => {
   return (
@@ -29,23 +30,17 @@ const Footer = () => {
           <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
             <li className="ms-3">
               <a className="text-muted" href="#">
-                <svg className="bi" width="24" height="24">
-                  {/* <use xlink:href="#twitter" /> */}
-                </svg>
+                <Github></Github>
               </a>
             </li>
             <li className="ms-3">
               <a className="text-muted" href="#">
-                <svg className="bi" width="24" height="24">
-                  {/* <use xlink:href="#instagram" /> */}
-                </svg>
+                <Linkedin></Linkedin>
               </a>
             </li>
             <li className="ms-3">
               <a className="text-muted" href="#">
-                <svg className="bi" width="24" height="24">
-                  {/* <use xlink:href="#facebook" /> */}
-                </svg>
+                <Twitter></Twitter>
               </a>
             </li>
           </ul>
