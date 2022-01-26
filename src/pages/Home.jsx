@@ -4,16 +4,18 @@ import Layout from "./shared/Layout";
 
 const Jumbo = () => {
   return (
-    <>
-      <>
-        <h1>Welcome to Project Explorer</h1>
-        <p>
-          Project Explorer is a repository for final year projects across all
-          departments at your institution. You can submit your project and
-          search projects submitted by others to learn from.
+    <section class="p-5 mb-4 bg-light rounded-3 container">
+      <div class="container-fluid py-2">
+        <h1 class="display-5 fw-bold text-primary">
+          Welcome to Project Explorer
+        </h1>
+        <p class="col-md-8 fs-4">
+          A repository for final year projects across all departments at your
+          institution. You can submit your project and search projects submitted
+          by others to learn from.
         </p>
-      </>
-    </>
+      </div>
+    </section>
   );
 };
 
@@ -28,7 +30,7 @@ const Showcase = () => {
   }, []);
 
   return (
-    <>
+    <section className="container">
       <CardGroup className="showcase">
         {projects.map((project) => {
           const { abstract, authors, id, name, tags } = project;
@@ -49,18 +51,15 @@ const Showcase = () => {
           );
         })}
       </CardGroup>
-      <br />
-    </>
+    </section>
   );
 };
 
 const Home = (props) => {
   return (
     <Layout us={props.us}>
-      <main className="container">
-        <Jumbo />
-        <Showcase {...props} />
-      </main>
+      <Jumbo />
+      <Showcase />
     </Layout>
   );
 };

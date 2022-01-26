@@ -6,7 +6,7 @@ import { RiProfileLine } from "react-icons/ri";
 const Footer = () => {
   return (
     <>
-      <footer className=" container fixed-bottom mt-3 d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      <footer className=" container mt-3 d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div className="col-md-4 d-flex align-items-center">
           <a
             href="/"
@@ -19,33 +19,27 @@ const Footer = () => {
 
         <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
           <li className="ms-3">
-            <a className="" href="https://github.com/Babajide777">
+            <a href="https://github.com/Babajide777">
               <Github></Github>
             </a>
           </li>
           <li className="ms-3">
-            <a
-              className=""
-              href="https://www.linkedin.com/in/babajide-oyafemi/"
-            >
+            <a href="https://www.linkedin.com/in/babajide-oyafemi/">
               <Linkedin></Linkedin>
             </a>
           </li>
           <li className="ms-3">
-            <a className="" href="https://twitter.com/Jid_BOSS">
+            <a href="https://twitter.com/Jid_BOSS">
               <Twitter></Twitter>
             </a>
           </li>
           <li className="ms-3">
-            <a
-              className=""
-              href="https://www.upwork.com/freelancers/~01efcad1f672850cd8"
-            >
+            <a href="https://www.upwork.com/freelancers/~01efcad1f672850cd8">
               <SiUpwork></SiUpwork>
             </a>
           </li>
           <li className="ms-3">
-            <a className="" href="https://www.codementor.io/@cdemeter007">
+            <a href="https://www.codementor.io/@cdemeter007">
               <RiProfileLine></RiProfileLine>
             </a>
           </li>
