@@ -14,7 +14,7 @@ import {
 
 const Header = (props) => {
   return (
-    <>
+    <header>
       <Navbar
         collapseOnSelect
         expand="lg"
@@ -75,7 +75,7 @@ const Header = (props) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-    </>
+    </header>
   );
 };
 
