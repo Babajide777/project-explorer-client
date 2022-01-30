@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "./shared/Layout";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Facebook, Google } from "react-bootstrap-icons";
 
 const BuildForm = ({ err }) => {
-  let showAlert = false;
-  err.length > 0 ? (showAlert = true) : (showAlert = false);
+  const [showAlert, setShowAlert] = useState(false);
+  // err.length > 0 ? (showAlert = true) : (showAlert = false);
 
   return (
     <>
       <div className="mx-auto w-50 p-3 mw-70">
-        <h1>Login</h1>
+        <h1 className="text-primary">Login</h1>
 
         <Form id="loginForm" method="post" action="/login">
           <Alert

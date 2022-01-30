@@ -10,9 +10,9 @@ const Jumbo = () => {
           Welcome to Project Explorer
         </h1>
         <p class="col-md-8 fs-4">
-          A repository for final year projects across all departments at your
-          institution. You can submit your project and search projects submitted
-          by others to learn from.
+          A repository for final year projects across all departments in the
+          university. You can submit your project and/or search for projects
+          submitted by others.
         </p>
       </div>
     </section>
@@ -33,13 +33,13 @@ const Showcase = () => {
     <section className="container">
       <CardGroup className="showcase">
         {projects.map((project) => {
-          const { abstract, authors, id, name, tags } = project;
+          const { abstract, authors, _id, name, tags } = project;
 
           return (
-            <Card key={id}>
+            <Card key={_id} border="primary" className="col-md-6">
               <Card.Body>
                 <Card.Title>
-                  <Card.Link href={`/project/${id}`}>{name}</Card.Link>
+                  <Card.Link href={`/project/${_id}`}>{name}</Card.Link>
                 </Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
                   {authors}
