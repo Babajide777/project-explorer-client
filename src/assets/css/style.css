@@ -3,3 +3,13 @@
     margin-left: -3.5rem;
   }
 }
+
+.fb-icon {
+  background-color: #3b5998;
+  min-width: 180px;
+}
+
+.gg-icon {
+  background-color: #db4437;
+  min-width: 180px;
+}

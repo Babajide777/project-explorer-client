@@ -8,77 +8,59 @@ const BuildForm = ({ err }) => {
   // err.length > 0 ? (showAlert = true) : (showAlert = false);
 
   return (
-    <>
-      <div className="mx-auto w-50 p-3 mw-70">
-        <h1 className="text-primary">Login</h1>
+    <div className="mx-auto w-50 p-3 mw-70">
+      <h1 className="text-primary mb-4">Login</h1>
+      <Form id="loginForm" method="post" action="/login" className="mb-3">
+        <Alert className="alert alert-danger" variant="danger" show={showAlert}>
+          {err}
+        </Alert>
+        <Form.Group controlId="formBasicEmail" className="mb-2">
+          <Form.Label className="fw-bold text-primary">
+            Email address
+          </Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter your email"
+            name="email"
+          />
+        </Form.Group>
+        <Form.Group controlId="formBasicPassword" className="mb-3">
+          <Form.Label className="fw-bold text-primary">Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Enter your password"
+            name="password"
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Login
+        </Button>
+        <a href="/forgotpassword" className="link-primary ms-3">
+          Forgot Password?
+        </a>
+      </Form>
 
-        <Form id="loginForm" method="post" action="/login">
-          <Alert
-            className="alert alert-danger"
-            variant="danger"
-            show={showAlert}
-          >
-            {err}
-          </Alert>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" name="email" />
-          </Form.Group>
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              name="password"
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Login
-          </Button>
-          <a
-            href="/forgotpassword"
-            className="link-primary"
-            style={{ marginLeft: 15 + "px" }}
-          >
-            Forgot Password?
-          </a>
-        </Form>
-        <br />
-
-        <Container>
-          <Row>
-            <Col></Col>
-            <Col>
-              <Button
-                href="/auth/facebook"
-                size="sm"
-                style={{
-                  backgroundColor: "#3b5998",
-                  marginBottom: 5 + "px",
-                  width: 180 + "px",
-                }}
-              >
-                <Facebook color="#fff" size="30" /> Login with Facebook
-              </Button>
-            </Col>
-            <Col></Col>
-          </Row>
-          <Row>
-            <Col></Col>
-            <Col>
-              <Button
-                href="/auth/google"
-                size="sm"
-                style={{ backgroundColor: "#DB4437", width: 180 + "px" }}
-              >
-                <Google color="	#fff" size="30" /> Login with Google
-              </Button>
-            </Col>
-            <Col></Col>
-          </Row>
-        </Container>
-      </div>
-    </>
+      <Container>
+        <Row>
+          <Col></Col>
+          <Col>
+            <Button href="/auth/facebook" size="sm" className="fb-icon mb-2">
+              <Facebook color="#fff" size="30" /> Login with Facebook
+            </Button>
+          </Col>
+          <Col></Col>
+        </Row>
+        <Row>
+          <Col></Col>
+          <Col>
+            <Button href="/auth/google" size="sm" className="gg-icon">
+              <Google color="	#fff" size="30" /> Login with Google
+            </Button>
+          </Col>
+          <Col></Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 
