@@ -2,6 +2,7 @@ import React, { useReducer, useState } from "react";
 import Layout from "./shared/Layout";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Facebook, Google } from "react-bootstrap-icons";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   showAlert: false,
@@ -27,6 +28,11 @@ const reducer = (state, action) => {
         ...state,
         showAlert: false,
       };
+    case "USER_UNAUTHETICATION":
+      return {
+        showAlert: true,
+        errMsg: action.payload,
+      };
 
     default:
       throw new Error("no matching action type");
@@ -37,8 +43,9 @@ const BuildForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [state, dispatch] = useReducer(reducer, initialState);
+  let navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({ type: "REFRESH" });
     if (email === "") {
@@ -47,6 +54,21 @@ const BuildForm = () => {
     if (password === "") {
       dispatch({ type: "NO_PASSWORD_VALUE" });
     }
+
+    fetch("http://localhost:4000/user/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        res.success
+          ? navigate("/")
+          : dispatch({ type: "USER_UNAUTHETICATION", payload: res.data });
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
