@@ -3,13 +3,13 @@ export const reducer = (state, action) => {
     case "NO_EMAIL_VALUE":
       return {
         showAlert: true,
-        errMsg: "Email can not be empty",
+        errMsg: "Email field can not be empty",
       };
 
     case "NO_PASSWORD_VALUE":
       return {
         showAlert: true,
-        errMsg: "Password can not be empty",
+        errMsg: "Password field can not be empty",
       };
 
     case "REFRESH":
