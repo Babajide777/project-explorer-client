@@ -19,27 +19,47 @@ const Footer = () => {
 
         <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
           <li className="ms-3">
-            <a href="https://github.com/Babajide777">
+            <a
+              href="https://github.com/Babajide777"
+              target="_blank"
+              rel="noreferrer"
+            >
               <Github></Github>
             </a>
           </li>
           <li className="ms-3">
-            <a href="https://www.linkedin.com/in/babajide-oyafemi/">
+            <a
+              href="https://www.linkedin.com/in/babajide-oyafemi/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <Linkedin></Linkedin>
             </a>
           </li>
           <li className="ms-3">
-            <a href="https://twitter.com/Jid_BOSS">
+            <a
+              href="https://twitter.com/Jid_BOSS"
+              target="_blank"
+              rel="noreferrer"
+            >
               <Twitter></Twitter>
             </a>
           </li>
           <li className="ms-3">
-            <a href="https://www.upwork.com/freelancers/~01efcad1f672850cd8">
+            <a
+              href="https://www.upwork.com/freelancers/~01efcad1f672850cd8"
+              target="_blank"
+              rel="noreferrer"
+            >
               <SiUpwork></SiUpwork>
             </a>
           </li>
           <li className="ms-3">
-            <a href="https://www.codementor.io/@cdemeter007">
+            <a
+              href="https://www.codementor.io/@cdemeter007"
+              target="_blank"
+              rel="noreferrer"
+            >
               <RiProfileLine></RiProfileLine>
             </a>
           </li>
