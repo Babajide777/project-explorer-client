@@ -9,19 +9,26 @@ const initialState = {
 };
 
 const MainSignUp = () => {
-  const [program, setProgram] = useState([]);
-  const [graduationYear, setGraduationYear] = useState([]);
+  const [programs, setPrograms] = useState([]);
+  const [graduationYears, setGraduationYears] = useState([]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [program, setProgram] = useState("");
+  const [graduationYear, setGraduationYear] = useState("");
+  const [matricNumber, setMatricNumber] = useState("");
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     fetch("http://localhost:4000/home/programs")
       .then((res) => res.json())
-      .then((res) => setProgram(res.data))
+      .then((res) => setPrograms(res.data))
       .catch((err) => console.log(err));
 
     fetch("http://localhost:4000/home/graduationyears")
       .then((res) => res.json())
-      .then((res) => setGraduationYear(res.data))
+      .then((res) => setGraduationYears(res.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -46,32 +53,56 @@ const MainSignUp = () => {
         <Row className="mb-3">
           <Form.Group as={Col} md={6}>
             <Form.Label className="fw-bold text-primary">First Name</Form.Label>
-            <Form.Control type="text" name="firstName" />
+            <Form.Control
+              type="text"
+              name="firstName"
+              value={firstName}
+              onClick={(e) => setFirstName(e.target.value)}
+            />
           </Form.Group>
 
           <Form.Group as={Col}>
             <Form.Label className="fw-bold text-primary">Last Name</Form.Label>
-            <Form.Control type="text" name="lastName" />
+            <Form.Control
+              type="text"
+              name="lastName"
+              value={lastName}
+              onClick={(e) => setLastName(e.target.value)}
+            />
           </Form.Group>
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} md={6} controlId="formGridEmail">
             <Form.Label className="fw-bold text-primary">Email</Form.Label>
-            <Form.Control type="email" name="email" />
+            <Form.Control
+              type="email"
+              name="email"
+              value={email}
+              onClick={(e) => setEmail(e.target.value)}
+            />
           </Form.Group>
 
           <Form.Group as={Col} controlId="formGridPassword">
             <Form.Label className="fw-bold text-primary">Password</Form.Label>
-            <Form.Control type="password" name="password" />
+            <Form.Control
+              type="password"
+              name="password"
+              value={password}
+              onClick={(e) => setPassword(e.target.value)}
+            />
           </Form.Group>
         </Row>
 
         <Row className="mb-3">
           <Form.Group as={Col} md={6}>
             <Form.Label className="fw-bold text-primary">Program</Form.Label>
-            <Form.Select name="program">
+            <Form.Select
+              name="program"
+              value={program}
+              onClick={(e) => setProgram(e.target.value)}
+            >
               <option>Select Option</option>
-              {program.map((prog) => (
+              {programs.map((prog) => (
                 <option key={prog}>{prog}</option>
               ))}
             </Form.Select>
@@ -81,16 +112,26 @@ const MainSignUp = () => {
             <Form.Label className="fw-bold text-primary">
               Matric Number
             </Form.Label>
-            <Form.Control type="text" name="matricNumber" />
+            <Form.Control
+              type="text"
+              name="matricNumber"
+              value={matricNumber}
+              onClick={(e) => setMatricNumber(e.target.value)}
+            />
           </Form.Group>
 
           <Form.Group as={Col}>
             <Form.Label className="fw-bold text-primary">
               Graduation Year
             </Form.Label>
-            <Form.Select as="select" name="graduationYear">
+            <Form.Select
+              as="select"
+              name="graduationYear"
+              value={graduationYear}
+              onClick={(e) => setGraduationYear(e.target.value)}
+            >
               <option>Select Option</option>
-              {graduationYear.map((year) => (
+              {graduationYears.map((year) => (
                 <option key={year}>{year}</option>
               ))}
             </Form.Select>
