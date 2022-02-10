@@ -2,7 +2,7 @@ import React, { useReducer, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Facebook, Google } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
-import { reducer } from "./reducer";
+import { reducer } from "../reducers/loginReducer";
 
 const initialState = {
   showAlert: false,
