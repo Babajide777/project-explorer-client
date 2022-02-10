@@ -32,10 +32,12 @@ const MainSignUp = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleSubmit = () => {};
+
   return (
     <div className="mx-auto w-50 p-3 mw-70">
-      <h1 className="text-primary">Signup</h1>
-      <Form id="signupForm" className="mb-3">
+      <h1>Signup</h1>
+      <Form id="signupForm" className="mb-3" onSubmit={handleSubmit}>
         <Alert
           className="alert alert-danger"
           variant="danger"
@@ -52,7 +54,7 @@ const MainSignUp = () => {
         </Alert>
         <Row className="mb-3">
           <Form.Group as={Col} md={6}>
-            <Form.Label className="fw-bold text-primary">First Name</Form.Label>
+            <Form.Label className="fw-bold">First Name</Form.Label>
             <Form.Control
               type="text"
               name="firstName"
@@ -62,7 +64,7 @@ const MainSignUp = () => {
           </Form.Group>
 
           <Form.Group as={Col}>
-            <Form.Label className="fw-bold text-primary">Last Name</Form.Label>
+            <Form.Label className="fw-bold">Last Name</Form.Label>
             <Form.Control
               type="text"
               name="lastName"
@@ -73,7 +75,7 @@ const MainSignUp = () => {
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} md={6} controlId="formGridEmail">
-            <Form.Label className="fw-bold text-primary">Email</Form.Label>
+            <Form.Label className="fw-bold">Email</Form.Label>
             <Form.Control
               type="email"
               name="email"
@@ -83,7 +85,7 @@ const MainSignUp = () => {
           </Form.Group>
 
           <Form.Group as={Col} controlId="formGridPassword">
-            <Form.Label className="fw-bold text-primary">Password</Form.Label>
+            <Form.Label className="fw-bold">Password</Form.Label>
             <Form.Control
               type="password"
               name="password"
@@ -95,7 +97,7 @@ const MainSignUp = () => {
 
         <Row className="mb-3">
           <Form.Group as={Col} md={6}>
-            <Form.Label className="fw-bold text-primary">Program</Form.Label>
+            <Form.Label className="fw-bold">Program</Form.Label>
             <Form.Select
               name="program"
               value={program}
@@ -109,9 +111,7 @@ const MainSignUp = () => {
           </Form.Group>
 
           <Form.Group as={Col}>
-            <Form.Label className="fw-bold text-primary">
-              Matric Number
-            </Form.Label>
+            <Form.Label className="fw-bold">Matric Number</Form.Label>
             <Form.Control
               type="text"
               name="matricNumber"
@@ -121,9 +121,7 @@ const MainSignUp = () => {
           </Form.Group>
 
           <Form.Group as={Col}>
-            <Form.Label className="fw-bold text-primary">
-              Graduation Year
-            </Form.Label>
+            <Form.Label className="fw-bold">Graduation Year</Form.Label>
             <Form.Select
               as="select"
               name="graduationYear"
