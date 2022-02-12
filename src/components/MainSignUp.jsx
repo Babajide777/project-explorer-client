@@ -32,7 +32,31 @@ const MainSignUp = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch({ type: "REFRESH" });
+    if (firstName === "") {
+      dispatch({ type: "NO_FIRSTNAME_VALUE" });
+    }
+    if (lastName === "") {
+      dispatch({ type: "NO_LASTNAME_VALUE" });
+    }
+    if (email === "") {
+      dispatch({ type: "NO_EMAIL_VALUE" });
+    }
+    if (password === "") {
+      dispatch({ type: "NO_PASSWORD_VALUE" });
+    }
+    if (program === "Select Option") {
+      dispatch({ type: "INCORRECT_PROGRAM_VALUE" });
+    }
+    if (matricNumber === "") {
+      dispatch({ type: "NO_MATRIC_VALUE" });
+    }
+    if (graduationYear === "Select Option") {
+      dispatch({ type: "INCORRECT_GRADUATION_YEAR_VALUE" });
+    }
+  };
 
   return (
     <div className="mx-auto w-50 p-3 mw-70">
@@ -43,6 +67,7 @@ const MainSignUp = () => {
           variant="danger"
           show={state.showAlert}
         >
+          {console.log(state.errMsg)}
           {state.errMsg.map((text) => {
             return (
               <>
@@ -59,7 +84,7 @@ const MainSignUp = () => {
               type="text"
               name="firstName"
               value={firstName}
-              onClick={(e) => setFirstName(e.target.value)}
+              onChange={(e) => setFirstName(e.target.value)}
             />
           </Form.Group>
 
@@ -69,7 +94,7 @@ const MainSignUp = () => {
               type="text"
               name="lastName"
               value={lastName}
-              onClick={(e) => setLastName(e.target.value)}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </Form.Group>
         </Row>
@@ -80,7 +105,7 @@ const MainSignUp = () => {
               type="email"
               name="email"
               value={email}
-              onClick={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>
 
@@ -90,7 +115,7 @@ const MainSignUp = () => {
               type="password"
               name="password"
               value={password}
-              onClick={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
         </Row>
@@ -101,7 +126,7 @@ const MainSignUp = () => {
             <Form.Select
               name="program"
               value={program}
-              onClick={(e) => setProgram(e.target.value)}
+              onChange={(e) => setProgram(e.target.value)}
             >
               <option>Select Option</option>
               {programs.map((prog) => (
@@ -116,7 +141,7 @@ const MainSignUp = () => {
               type="text"
               name="matricNumber"
               value={matricNumber}
-              onClick={(e) => setMatricNumber(e.target.value)}
+              onChange={(e) => setMatricNumber(e.target.value)}
             />
           </Form.Group>
 
@@ -126,7 +151,7 @@ const MainSignUp = () => {
               as="select"
               name="graduationYear"
               value={graduationYear}
-              onClick={(e) => setGraduationYear(e.target.value)}
+              onChange={(e) => setGraduationYear(e.target.value)}
             >
               <option>Select Option</option>
               {graduationYears.map((year) => (
