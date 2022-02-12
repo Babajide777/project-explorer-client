@@ -33,6 +33,8 @@ const MainSignUp = () => {
   }, []);
 
   const handleSubmit = (e) => {
+    console.log(graduationYear);
+    console.log(program);
     e.preventDefault();
     dispatch({ type: "REFRESH" });
     if (firstName === "") {
@@ -47,11 +49,17 @@ const MainSignUp = () => {
     if (password === "") {
       dispatch({ type: "NO_PASSWORD_VALUE" });
     }
+    if (program === "") {
+      dispatch({ type: "INCORRECT_PROGRAM_VALUE" });
+    }
     if (program === "Select Option") {
       dispatch({ type: "INCORRECT_PROGRAM_VALUE" });
     }
     if (matricNumber === "") {
       dispatch({ type: "NO_MATRIC_VALUE" });
+    }
+    if (graduationYear === "") {
+      dispatch({ type: "INCORRECT_GRADUATION_YEAR_VALUE" });
     }
     if (graduationYear === "Select Option") {
       dispatch({ type: "INCORRECT_GRADUATION_YEAR_VALUE" });
@@ -67,7 +75,6 @@ const MainSignUp = () => {
           variant="danger"
           show={state.showAlert}
         >
-          {console.log(state.errMsg)}
           {state.errMsg.map((text) => {
             return (
               <>
@@ -130,7 +137,9 @@ const MainSignUp = () => {
             >
               <option>Select Option</option>
               {programs.map((prog) => (
-                <option key={prog}>{prog}</option>
+                <option key={prog} value={prog}>
+                  {prog}
+                </option>
               ))}
             </Form.Select>
           </Form.Group>
@@ -155,7 +164,9 @@ const MainSignUp = () => {
             >
               <option>Select Option</option>
               {graduationYears.map((year) => (
-                <option key={year}>{year}</option>
+                <option key={year} value={year}>
+                  {year}
+                </option>
               ))}
             </Form.Select>
           </Form.Group>
