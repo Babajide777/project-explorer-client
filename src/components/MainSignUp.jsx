@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Facebook, Google } from "react-bootstrap-icons";
+import { useNavigate } from "react-router-dom";
 import { reducer } from "../reducers/signUpReducer";
 
 const initialState = {
@@ -19,6 +20,7 @@ const MainSignUp = () => {
   const [graduationYear, setGraduationYear] = useState("");
   const [matricNumber, setMatricNumber] = useState("");
   const [state, dispatch] = useReducer(reducer, initialState);
+  let navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:4000/home/programs")
@@ -33,8 +35,6 @@ const MainSignUp = () => {
   }, []);
 
   const handleSubmit = (e) => {
-    console.log(graduationYear);
-    console.log(program);
     e.preventDefault();
     dispatch({ type: "REFRESH" });
     if (firstName === "") {
@@ -64,6 +64,46 @@ const MainSignUp = () => {
     if (graduationYear === "Select Option") {
       dispatch({ type: "INCORRECT_GRADUATION_YEAR_VALUE" });
     }
+
+    if (
+      !(
+        firstName === "" ||
+        lastName === "" ||
+        email === "" ||
+        password === "" ||
+        program === "" ||
+        program === "Select Option" ||
+        matricNumber === "" ||
+        graduationYear === "" ||
+        graduationYear === "Select Option"
+      )
+    ) {
+      fetch("http://localhost:4000/user/signup", {
+        method: "POST",
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+          program,
+          matricNumber,
+          graduationYear,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          if (res.success) {
+            localStorage.setItem("user", JSON.stringify(res.data));
+            navigate("/");
+          }
+          dispatch({ type: "ERROR_FROM_SERVER", payload: res.message });
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
@@ -78,7 +118,7 @@ const MainSignUp = () => {
           {state.errMsg.map((text) => {
             return (
               <>
-                {text}
+                <small key={text}>{text}</small>
                 <br />
               </>
             );

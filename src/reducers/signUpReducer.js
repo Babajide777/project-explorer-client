@@ -52,6 +52,12 @@ export const reducer = (state, action) => {
         showAlert: true,
         errMsg: [...state.errMsg, "Please fill in a correct graduation year"],
       };
+    case "ERROR_FROM_SERVER":
+      return {
+        ...state,
+        showAlert: true,
+        errMsg: action.payload,
+      };
 
     default:
       throw new Error("no matching action type");
