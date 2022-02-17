@@ -6,7 +6,7 @@ import { reducer } from "../reducers/loginReducer";
 
 const initialState = {
   showAlert: false,
-  errMsg: "",
+  errMsg: [],
 };
 
 const BuildLoginForm = () => {
@@ -19,26 +19,33 @@ const BuildLoginForm = () => {
     e.preventDefault();
     dispatch({ type: "REFRESH" });
     if (email === "") {
-      return dispatch({ type: "NO_EMAIL_VALUE" });
+      dispatch({ type: "NO_EMAIL_VALUE" });
     }
     if (password === "") {
-      return dispatch({ type: "NO_PASSWORD_VALUE" });
+      dispatch({ type: "NO_PASSWORD_VALUE" });
     }
 
-    fetch("http://localhost:4000/user/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        res.success
-          ? navigate("/")
-          : dispatch({ type: "USER_UNAUTHETICATION", payload: res.data });
+    if (!(email === "" || password === "")) {
+      fetch("http://localhost:4000/user/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch((err) => console.log(err));
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.success) {
+            localStorage.setItem("user", JSON.stringify(res.data));
+            navigate("/");
+          }
+          dispatch({
+            type: "USER_UNAUTHETICATION",
+            payload: res.message,
+          });
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
@@ -55,7 +62,14 @@ const BuildLoginForm = () => {
           variant="danger"
           show={state.showAlert}
         >
-          {state.errMsg}
+          {state.errMsg.map((text) => {
+            return (
+              <>
+                <small key={text}>{text}</small>
+                <br />
+              </>
+            );
+          })}
         </Alert>
         <Form.Group controlId="formBasicEmail" className="mb-2">
           <Form.Label className="fw-bold text-primary">
