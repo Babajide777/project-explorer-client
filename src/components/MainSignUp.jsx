@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Facebook, Google } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
+import { setToken } from "../auth";
 import { reducer } from "../reducers/signUpReducer";
 
 const initialState = {
@@ -96,7 +97,7 @@ const MainSignUp = () => {
         .then((res) => res.json())
         .then((res) => {
           if (res.success) {
-            localStorage.setItem("user", JSON.stringify(res.data));
+            setToken("user", res.data);
             navigate("/");
           }
           dispatch({ type: "ERROR_FROM_SERVER", payload: res.message });
