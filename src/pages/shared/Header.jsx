@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import {
   Button,
   Col,
@@ -11,8 +12,23 @@ import {
   NavItem,
   Row,
 } from "react-bootstrap";
+import { getToken } from "../../auth";
 
 const Header = (props) => {
+  useEffect(() => {
+    let token = getToken();
+    console.log(token);
+    fetch("http://localhost:4000/home", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer${JSON.stringify(token)}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <header>
       <Navbar
