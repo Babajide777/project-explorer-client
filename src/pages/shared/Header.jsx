@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import {
   Button,
@@ -12,12 +13,17 @@ import {
   NavItem,
   Row,
 } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getToken } from "../../auth";
 
-const Header = (props) => {
+const Header = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState({});
+  let location = useLocation();
+  let navigate = useNavigate();
   useEffect(() => {
+    console.log(location.pathname);
     let token = getToken();
-    console.log(token);
     fetch("http://localhost:4000/home", {
       method: "POST",
       headers: {
@@ -25,7 +31,15 @@ const Header = (props) => {
       },
     })
       .then((res) => res.json())
-      .then((res) => console.log(res))
+      .then((res) => {
+        if (res.success) {
+          setIsAuthenticated(true);
+          setUser(res.data);
+          if (location.pathname === "/login" || "/signup") {
+            navigate("/");
+          }
+        }
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -60,26 +74,26 @@ const Header = (props) => {
               Submit Project
             </Nav.Link>
           </Nav>
-          <Nav id="every">
-            {props.us ? (
+          <Nav>
+            {isAuthenticated ? (
               <>
                 <Nav.Link id="logout" href="/logout">
                   Logout
                 </Nav.Link>
                 <NavDropdown
-                  title={`Hi ${props.us.firstname}`}
+                  title={`Hi ${user.firstName}`}
                   id="collasible-nav-dropdown"
                 >
-                  <NavDropdown.Item href={`/editprofile/${props.us._id}`}>
+                  <NavDropdown.Item href={`/editprofile/${user._id}`}>
                     Edit Profile
                   </NavDropdown.Item>
                 </NavDropdown>
                 <NavItem>
-                  <Image
+                  {/* <Image
                     src={`${props.us.profilePicture}`}
                     roundedCircle
                     style={{ height: 50 + "px", width: 50 + "px" }}
-                  />
+                  /> */}
                 </NavItem>
               </>
             ) : (
