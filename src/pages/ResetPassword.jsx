@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useReducer } from "react";
 import { reducer } from "../reducers/forgotPasswordReducer";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   showAlert: false,
@@ -18,6 +19,7 @@ const BuildForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [state, dispatch] = useReducer(reducer, initialState);
+  let navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,15 +50,16 @@ const BuildForm = () => {
       })
         .then((res) => res.json())
         .then((res) => {
-          // if (res.success) {
-          //   localStorage.setItem("user", JSON.stringify(res.data));
-          //   navigate("/");
-          // }
-          // dispatch({
-          //   type: "USER_UNAUTHETICATION",
-          //   payload: res.message,
-          // });
-          console.log(res);
+          if (res.success) {
+            dispatch({ type: "SUCCESS", payload: res.message });
+            setTimeout(() => {
+              navigate("/");
+            }, 5000);
+          }
+          dispatch({
+            type: "USER_UNAUTHETICATION",
+            payload: res.message,
+          });
         })
         .catch((err) => console.log(err));
     }
