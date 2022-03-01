@@ -22,7 +22,6 @@ const Header = () => {
   let location = useLocation();
   let navigate = useNavigate();
   useEffect(() => {
-    console.log(location.pathname);
     let token = getToken();
     fetch("http://localhost:4000/home", {
       method: "POST",
@@ -35,9 +34,9 @@ const Header = () => {
         if (res.success) {
           setIsAuthenticated(true);
           setUser(res.data);
-          // if (location.pathname === "/login" || "/signup") {
-          //   navigate("/");
-          // }
+          if (location.pathname === "/login" || "/signup" || "forgotpassword") {
+            navigate("/");
+          }
         }
       })
       .catch((err) => console.log(err));
