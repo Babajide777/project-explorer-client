@@ -2,21 +2,45 @@ import React from "react";
 import Layout from "./shared/Layout";
 import { Alert, Button, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { useReducer } from "react";
+import { reducer } from "../reducers/forgotPasswordReducer";
+import { useState } from "react";
+
+const initialState = {
+  showAlert: false,
+  errMsg: [],
+  alertVariant: "danger",
+  alertClass: "alert alert-danger",
+};
 
 const BuildForm = () => {
   let { id } = useParams();
+  const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState("");
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <>
       <div className="mx-auto w-50 p-3 mw-70">
         <h2 className="text-primary fw-bold mb-4">Reset Password</h2>
-        <Form id="loginForm" method="post" action="/resetpassword">
-          {/* <Alert
-            className="alert alert-danger"
-            variant="danger"
-            show={showAlert}
+        <Form id="loginForm" onSubmit={handleSubmit}>
+          <Alert
+            className={state.alertClass}
+            variant={state.alertVariant}
+            show={state.showAlert}
           >
-            {err}
-          </Alert> */}
+            {state.errMsg.map((text) => {
+              return (
+                <>
+                  <small key={text}>{text}</small>
+                  <br />
+                </>
+              );
+            })}
+          </Alert>
 
           <Form.Group controlId="formBasicEmail" className="mb-3">
             <Form.Label className="fw-bold text-primary">
@@ -26,7 +50,8 @@ const BuildForm = () => {
               type="password"
               placeholder="Enter new password"
               name="password"
-              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
 
@@ -38,7 +63,8 @@ const BuildForm = () => {
               type="password"
               placeholder="Confirm password"
               name="confirmPassword"
-              required
+              value={confirmpassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </Form.Group>
 
