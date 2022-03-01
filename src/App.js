@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import ResetPassword from "./pages/ResetPassword";
 import Signup from "./pages/Signup";
 
 function App() {
@@ -14,6 +15,10 @@ function App() {
         <Route
           path="/forgotpassword"
           element={<ForgotPassword></ForgotPassword>}
+        />
+        <Route
+          path="/resetpassword/:id"
+          element={<ResetPassword></ResetPassword>}
         />
       </Routes>
     </BrowserRouter>

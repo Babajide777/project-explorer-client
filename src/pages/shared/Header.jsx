@@ -34,9 +34,9 @@ const Header = () => {
         if (res.success) {
           setIsAuthenticated(true);
           setUser(res.data);
-          if (location.pathname === "/login" || "/signup" || "forgotpassword") {
-            navigate("/");
-          }
+          // if (location.pathname === "/login" || "/signup" || "forgotpassword") {
+          //   navigate("/");
+          // }
         }
       })
       .catch((err) => console.log(err));

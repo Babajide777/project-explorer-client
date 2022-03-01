@@ -1,25 +1,27 @@
 import React from "react";
 import Layout from "./shared/Layout";
 import { Alert, Button, Form } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
-const BuildForm = ({ err, id }) => {
-  let showAlert = false;
-  err.length > 0 ? (showAlert = true) : (showAlert = false);
+const BuildForm = () => {
+  let { id } = useParams();
   return (
     <>
       <div className="mx-auto w-50 p-3 mw-70">
-        <h2>Reset Password</h2>
+        <h2 className="text-primary fw-bold mb-4">Reset Password</h2>
         <Form id="loginForm" method="post" action="/resetpassword">
-          <Alert
+          {/* <Alert
             className="alert alert-danger"
             variant="danger"
             show={showAlert}
           >
             {err}
-          </Alert>
+          </Alert> */}
 
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>New Password</Form.Label>
+          <Form.Group controlId="formBasicEmail" className="mb-3">
+            <Form.Label className="fw-bold text-primary">
+              New Password
+            </Form.Label>
             <Form.Control
               type="password"
               placeholder="Enter new password"
@@ -28,8 +30,10 @@ const BuildForm = ({ err, id }) => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Confirm Password</Form.Label>
+          <Form.Group className="mb-3">
+            <Form.Label className="fw-bold text-primary">
+              Confirm Password
+            </Form.Label>
             <Form.Control
               type="password"
               placeholder="Confirm password"
@@ -42,8 +46,8 @@ const BuildForm = ({ err, id }) => {
             <Form.Control
               type="text"
               name="id"
-              defaultValue={`${id}`}
-              style={{ display: "none" }}
+              defaultValue={id}
+              className="d-none"
             />
           </Form.Group>
 
