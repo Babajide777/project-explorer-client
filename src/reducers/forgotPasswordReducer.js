@@ -23,7 +23,7 @@ export const reducer = (state, action) => {
         showAlert: true,
         alertVariant: "danger",
         alertClass: "alert alert-danger",
-        errMsg: [...state.errMsg, "Please fill in the confirmPassword field"],
+        errMsg: [...state.errMsg, "Please fill in the confirm Password field"],
       };
 
     case "PASSWORDS_DO NOT_MATCH":

@@ -31,6 +31,35 @@ const BuildForm = () => {
     if (password !== confirmPassword) {
       dispatch({ type: "PASSWORDS_DO NOT_MATCH" });
     }
+
+    if (
+      !(
+        confirmPassword === "" ||
+        password === "" ||
+        password !== confirmPassword
+      )
+    ) {
+      fetch("http://localhost:4000/user/resetpassword", {
+        method: "POST",
+        body: JSON.stringify({ password, confirmPassword, id }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          // if (res.success) {
+          //   localStorage.setItem("user", JSON.stringify(res.data));
+          //   navigate("/");
+          // }
+          // dispatch({
+          //   type: "USER_UNAUTHETICATION",
+          //   payload: res.message,
+          // });
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    }
   };
   return (
     <>
