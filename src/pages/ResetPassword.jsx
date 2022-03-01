@@ -16,11 +16,21 @@ const initialState = {
 const BuildForm = () => {
   let { id } = useParams();
   const [password, setPassword] = useState("");
-  const [confirmpassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch({ type: "REFRESH" });
+    if (password === "") {
+      dispatch({ type: "NO_PASSWORD_VALUE" });
+    }
+    if (confirmPassword === "") {
+      dispatch({ type: "NO_CONFIRMPASSWORD_VALUE" });
+    }
+    if (password !== confirmPassword) {
+      dispatch({ type: "PASSWORDS_DO NOT_MATCH" });
+    }
   };
   return (
     <>
@@ -63,17 +73,8 @@ const BuildForm = () => {
               type="password"
               placeholder="Confirm password"
               name="confirmPassword"
-              value={confirmpassword}
+              value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Control
-              type="text"
-              name="id"
-              defaultValue={id}
-              className="d-none"
             />
           </Form.Group>
 
