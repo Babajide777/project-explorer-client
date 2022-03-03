@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
 import Signup from "./pages/Signup";
+import CreateProject from "./pages/CreateProject";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
         <Route
           path="/resetpassword/:id"
           element={<ResetPassword></ResetPassword>}
+        />
+        <Route
+          path="/projects/submit"
+          element={<CreateProject></CreateProject>}
         />
       </Routes>
     </BrowserRouter>
