@@ -1,8 +1,10 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import { useState } from "react";
 import { Alert, Button, Form } from "react-bootstrap";
 import { reducer } from "../reducers/createProjectReducer";
 import Layout from "./shared/Layout";
+import { getToken } from "../auth";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   showAlert: false,
@@ -11,14 +13,33 @@ const initialState = {
   alertClass: "alert alert-danger",
 };
 
-const CreateProjectForm = ({ err }) => {
-  // let showAlert = false;
-  // err.length > 0 ? (showAlert = true) : (showAlert = false);
+const CreateProjectForm = () => {
   const [name, setName] = useState("");
   const [abstract, setAbstract] = useState("");
   const [author, setAuthor] = useState("");
   const [tags, setTags] = useState("");
+  const [user, setUser] = useState({});
   const [state, dispatch] = useReducer(reducer, initialState);
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    let token = getToken();
+    fetch("http://localhost:4000/home", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer${JSON.stringify(token)}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success) {
+          setUser(res.data);
+        } else {
+          navigate("/");
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,32 +56,39 @@ const CreateProjectForm = ({ err }) => {
     if (tags === "") {
       dispatch({ type: "NO_TAG_VALUE" });
     }
-    console.log(author);
-    console.log(tags);
+
+    let authors = author.split(",");
+    let tagss = tags.split("#").filter((tag) => tag !== "");
 
     if (!(name === "" || abstract === "" || author === "" || tags === "")) {
-      // fetch("http://localhost:4000/user/resetpassword", {
-      //   method: "POST",
-      //   body: JSON.stringify({ name, abstract }),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // })
-      //   .then((res) => res.json())
-      //   .then((res) => {
-      //     console.log(res);
-      //     if (res.success) {
-      //       dispatch({ type: "SUCCESS", payload: res.message });
-      //       setTimeout(() => {
-      //         navigate("/");
-      //       }, 5000);
-      //     }
-      //     dispatch({
-      //       type: "USER_UNAUTHETICATION",
-      //       payload: res.message,
-      //     });
-      //   })
-      //   .catch((err) => console.log(err));
+      fetch("http://localhost:4000/project/create", {
+        method: "POST",
+        body: JSON.stringify({
+          name,
+          abstract,
+          authors,
+          tags: tagss,
+          createdBy: user._id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.success) {
+            console.log(res.message);
+            // dispatch({ type: "SUCCESS", payload: res.message });
+            setTimeout(() => {
+              navigate("/");
+            }, 5000);
+          }
+          dispatch({
+            type: "USER_UNAUTHETICATION",
+            payload: res.data,
+          });
+        })
+        .catch((err) => console.log(err));
     }
   };
 
