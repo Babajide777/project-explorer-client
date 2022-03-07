@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
 import Signup from "./pages/Signup";
 import CreateProject from "./pages/CreateProject";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           path="/projects/submit"
           element={<CreateProject></CreateProject>}
         />
+        <Route path="/editprofile/:id" element={<EditProfile></EditProfile>} />
       </Routes>
     </BrowserRouter>
   );
