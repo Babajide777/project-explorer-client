@@ -2,9 +2,17 @@ import React, { useEffect, useReducer, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { reducer1 } from "../reducers/changePasswordReducer";
+import { reducer } from "../reducers/editProfileReducer";
 import Layout from "./shared/Layout";
 
 const initialState1 = {
+  showAlert: false,
+  errMsg: [],
+  alertVariant: "danger",
+  alertClass: "alert alert-danger",
+};
+
+const initialState = {
   showAlert: false,
   errMsg: [],
   alertVariant: "danger",
@@ -19,6 +27,7 @@ const ProfileDetails = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [state1, dispatch1] = useReducer(reducer1, initialState1);
+  const [state, dispatch] = useReducer(reducer, initialState);
   let navigate = useNavigate();
   let { id } = useParams();
 
@@ -47,7 +56,7 @@ const ProfileDetails = () => {
       )
     ) {
       fetch("http://localhost:4000/user/profilechangepwd", {
-        method: "POST",
+        method: "PUT",
         body: JSON.stringify({
           currentPassword,
           newPassword,
@@ -74,6 +83,11 @@ const ProfileDetails = () => {
         })
         .catch((err) => console.log(err));
     }
+  };
+
+  const handleProfileChange = (e) => {
+    e.preventDefault();
+    console.log(firstNameForm);
   };
 
   useEffect(() => {
@@ -109,6 +123,8 @@ const ProfileDetails = () => {
     _id,
   } = details;
 
+  const [firstNameForm, setFirstNameForm] = useState(firstName);
+
   return (
     <Container>
       <Row as="section" className="mb-4">
@@ -143,7 +159,7 @@ const ProfileDetails = () => {
         <h4>Update Profile</h4>
       </Row>
       <div className="mx-auto mb-4" style={{ width: 70 + "%" }}>
-        <Form>
+        <Form onSubmit={handleProfileChange}>
           {
             // <Alert
             //   className="alert alert-success"
@@ -167,6 +183,7 @@ const ProfileDetails = () => {
                 type="text"
                 name="firstName"
                 defaultValue={firstName}
+                onChange={(e) => setFirstNameForm(e.target.value)}
               />
             </Form.Group>
             <Form.Group as={Col} md="6">

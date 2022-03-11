@@ -41,7 +41,7 @@ const BuildResetPasswordForm = () => {
       )
     ) {
       fetch("http://localhost:4000/user/resetpassword", {
-        method: "POST",
+        method: "PUT",
         body: JSON.stringify({ password, confirmPassword, id }),
         headers: {
           "Content-Type": "application/json",
