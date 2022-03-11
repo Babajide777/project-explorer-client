@@ -75,16 +75,16 @@ const CreateProjectForm = () => {
         .then((res) => res.json())
         .then((res) => {
           if (res.success) {
-            console.log(res.message);
-            // dispatch({ type: "SUCCESS", payload: res.message });
+            dispatch({ type: "SUCCESS", payload: res.message });
             setTimeout(() => {
               navigate("/");
             }, 5000);
+          } else {
+            dispatch({
+              type: "USER_UNAUTHETICATION",
+              payload: res.data,
+            });
           }
-          dispatch({
-            type: "USER_UNAUTHETICATION",
-            payload: res.data,
-          });
         })
         .catch((err) => console.log(err));
     }

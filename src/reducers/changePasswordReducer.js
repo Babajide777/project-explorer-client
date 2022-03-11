@@ -44,6 +44,22 @@ export const reducer1 = (state, action) => {
         errMsg: [...state.errMsg, "Passwords do not match"],
       };
 
+    case "SUCCESS":
+      return {
+        showAlert: true,
+        alertVariant: "success",
+        alertClass: "alert alert-success",
+        errMsg: action.payload,
+      };
+
+    case "USER_UNAUTHETICATION":
+      return {
+        showAlert: true,
+        alertVariant: "danger",
+        alertClass: "alert alert-danger",
+        errMsg: action.payload,
+      };
+
     default:
       throw new Error("no matching action type");
   }

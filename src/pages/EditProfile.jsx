@@ -46,7 +46,7 @@ const ProfileDetails = () => {
         confirmPassword !== newPassword
       )
     ) {
-      fetch("http://localhost:4000/user/changepassword", {
+      fetch("http://localhost:4000/user/profilechangepwd", {
         method: "POST",
         body: JSON.stringify({
           currentPassword,
@@ -59,7 +59,19 @@ const ProfileDetails = () => {
         },
       })
         .then((res) => res.json())
-        .then((res) => console.log(res))
+        .then((res) => {
+          if (res.success) {
+            dispatch1({ type: "SUCCESS", payload: res.message });
+            setTimeout(() => {
+              navigate("/");
+            }, 5000);
+          } else {
+            dispatch1({
+              type: "USER_UNAUTHETICATION",
+              payload: res.message,
+            });
+          }
+        })
         .catch((err) => console.log(err));
     }
   };
