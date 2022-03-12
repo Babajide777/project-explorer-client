@@ -6,6 +6,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Signup from "./pages/Signup";
 import CreateProject from "./pages/CreateProject";
 import EditProfile from "./pages/EditProfile";
+import Project from "./pages/Project";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           element={<CreateProject></CreateProject>}
         />
         <Route path="/editprofile/:id" element={<EditProfile></EditProfile>} />
+        <Route path="/project/:id" element={<Project></Project>} />
       </Routes>
     </BrowserRouter>
   );
