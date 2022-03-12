@@ -8,4 +8,8 @@ const setToken = (user, data) => {
   localStorage.setItem(user, JSON.stringify(data));
 };
 
-export { getToken, setToken };
+const removeToken = () => {
+  localStorage.removeItem("user");
+};
+
+export { getToken, setToken, removeToken };

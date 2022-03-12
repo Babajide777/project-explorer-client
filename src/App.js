@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import CreateProject from "./pages/CreateProject";
 import EditProfile from "./pages/EditProfile";
 import Project from "./pages/Project";
+import Logout from "./pages/Logout";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         />
         <Route path="/editprofile/:id" element={<EditProfile></EditProfile>} />
         <Route path="/project/:id" element={<Project></Project>} />
+        <Route path="/logout" element={<Logout></Logout>} />
       </Routes>
     </BrowserRouter>
   );
