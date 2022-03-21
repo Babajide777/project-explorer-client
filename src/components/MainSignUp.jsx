@@ -23,6 +23,10 @@ const MainSignUp = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   let navigate = useNavigate();
 
+  const googleClick = () => {
+    window.open("http://localhost:4000/auth/google", "_self");
+  };
+
   useEffect(() => {
     fetch("http://localhost:4000/home/programs")
       .then((res) => res.json())
@@ -238,7 +242,12 @@ const MainSignUp = () => {
         <Row>
           <Col></Col>
           <Col>
-            <Button href="/auth/google" size="sm" className="gg-icon ss-icon">
+            <Button
+              // href="/auth/google"
+              size="sm"
+              className="gg-icon ss-icon"
+              onClick={googleClick}
+            >
               <Google color="	#fff" size="30" /> Signup with Google
             </Button>
           </Col>

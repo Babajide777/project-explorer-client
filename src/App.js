@@ -8,6 +8,9 @@ import CreateProject from "./pages/CreateProject";
 import EditProfile from "./pages/EditProfile";
 import Project from "./pages/Project";
 import Logout from "./pages/Logout";
+import Facebook from "./pages/Facebook";
+import Google from "./pages/Google";
+import ContinueSignUp from "./pages/ContinueSignUp";
 
 function App() {
   return (
@@ -31,6 +34,12 @@ function App() {
         <Route path="/editprofile/:id" element={<EditProfile></EditProfile>} />
         <Route path="/project/:id" element={<Project></Project>} />
         <Route path="/logout" element={<Logout></Logout>} />
+        <Route path="/auth/facebook" element={<Facebook></Facebook>} />
+        <Route path="/auth/google" element={<Google></Google>} />
+        <Route
+          path="/continuesignup/:id"
+          element={<ContinueSignUp></ContinueSignUp>}
+        />
       </Routes>
     </BrowserRouter>
   );
