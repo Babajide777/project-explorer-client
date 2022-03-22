@@ -2,6 +2,7 @@ import React, { useReducer, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Facebook, Google } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
+import { setToken } from "../auth";
 import { reducer } from "../reducers/loginReducer";
 
 const initialState = {
@@ -36,13 +37,15 @@ const BuildLoginForm = () => {
         .then((res) => res.json())
         .then((res) => {
           if (res.success) {
-            localStorage.setItem("user", JSON.stringify(res.data));
+            console.log(res.data);
+            setToken("user", res.data);
             navigate("/");
+          } else {
+            dispatch({
+              type: "USER_UNAUTHETICATION",
+              payload: res.message,
+            });
           }
-          dispatch({
-            type: "USER_UNAUTHETICATION",
-            payload: res.message,
-          });
         })
         .catch((err) => console.log(err));
     }

@@ -54,11 +54,12 @@ const BuildResetPasswordForm = () => {
             setTimeout(() => {
               navigate("/");
             }, 5000);
+          } else {
+            dispatch({
+              type: "USER_UNAUTHETICATION",
+              payload: res.message,
+            });
           }
-          dispatch({
-            type: "USER_UNAUTHETICATION",
-            payload: res.message,
-          });
         })
         .catch((err) => console.log(err));
     }
