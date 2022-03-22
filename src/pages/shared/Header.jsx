@@ -34,6 +34,15 @@ const Header = () => {
         if (res.success) {
           setIsAuthenticated(true);
           setUser(res.data);
+          const { program, graduationYear } = res.data;
+          if (
+            program === undefined &&
+            graduationYear === undefined &&
+            !window.location.href.includes("continuesignup")
+          ) {
+            navigate(`/continuesignup/${token}`);
+          }
+
           // if (location.pathname === "/login" || "/signup" || "forgotpassword") {
           //   navigate("/");
           // }

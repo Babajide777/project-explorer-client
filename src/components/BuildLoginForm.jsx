@@ -37,7 +37,6 @@ const BuildLoginForm = () => {
         .then((res) => res.json())
         .then((res) => {
           if (res.success) {
-            console.log(res.data);
             setToken("user", res.data);
             navigate("/");
           } else {
