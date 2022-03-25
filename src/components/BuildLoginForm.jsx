@@ -10,6 +10,14 @@ const initialState = {
   errMsg: [],
 };
 
+const googleClick = () => {
+  window.open("http://localhost:4000/auth/google", "_self");
+};
+
+const facebookClick = () => {
+  window.open("http://localhost:4000/auth/facebook", "_self");
+};
+
 const BuildLoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -107,7 +115,7 @@ const BuildLoginForm = () => {
         <Row>
           <Col></Col>
           <Col>
-            <Button href="/auth/facebook" size="sm" className="fb-icon mb-2">
+            <Button size="sm" className="fb-icon mb-2" onClick={facebookClick}>
               <Facebook color="#fff" size="30" /> Login with Facebook
             </Button>
           </Col>
@@ -116,7 +124,7 @@ const BuildLoginForm = () => {
         <Row>
           <Col></Col>
           <Col>
-            <Button href="/auth/google" size="sm" className="gg-icon">
+            <Button size="sm" className="gg-icon" onClick={googleClick}>
               <Google color="	#fff" size="30" /> Login with Google
             </Button>
           </Col>

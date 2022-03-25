@@ -27,6 +27,10 @@ const MainSignUp = () => {
     window.open("http://localhost:4000/auth/google", "_self");
   };
 
+  const facebookClick = () => {
+    window.open("http://localhost:4000/auth/facebook", "_self");
+  };
+
   useEffect(() => {
     fetch("http://localhost:4000/home/programs")
       .then((res) => res.json())
@@ -230,9 +234,9 @@ const MainSignUp = () => {
           <Col></Col>
           <Col>
             <Button
-              href="/auth/facebook"
               size="sm"
               className="fb-icon ss-icon mb-2"
+              onClick={facebookClick}
             >
               <Facebook color="#fff" size="30" /> Signup with Facebook
             </Button>
@@ -242,12 +246,7 @@ const MainSignUp = () => {
         <Row>
           <Col></Col>
           <Col>
-            <Button
-              // href="/auth/google"
-              size="sm"
-              className="gg-icon ss-icon"
-              onClick={googleClick}
-            >
+            <Button size="sm" className="gg-icon ss-icon" onClick={googleClick}>
               <Google color="	#fff" size="30" /> Signup with Google
             </Button>
           </Col>

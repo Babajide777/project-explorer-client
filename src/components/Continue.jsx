@@ -50,7 +50,8 @@ const Continue = () => {
             navigate("/");
           }
         } else {
-          navigate("/errorsignup");
+          console.log(res);
+          // navigate("/errorsignup");
         }
       });
   }, []);
