@@ -33,7 +33,7 @@ const CreateProjectForm = () => {
         if (res.success) {
           setUser(res.data);
         } else {
-          navigate("/");
+          navigate("/login");
         }
       })
       .catch((err) => console.log(err));

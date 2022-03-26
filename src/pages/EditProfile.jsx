@@ -26,6 +26,13 @@ const ProfileDetails = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstNameForm, setFirstNameForm] = useState("");
+  const [lastNameForm, setLastNameForm] = useState("");
+  const [emailForm, setEmailForm] = useState("");
+  const [programForm, setProgramForm] = useState("");
+  const [matricNumberForm, setMatricNumberForm] = useState("");
+  const [graduationYearForm, setGraduationYearForm] = useState("");
+  const [profilePicture, setprofilePicture] = useState();
   const [state1, dispatch1] = useReducer(reducer1, initialState1);
   const [state, dispatch] = useReducer(reducer, initialState);
   let navigate = useNavigate();
@@ -88,6 +95,12 @@ const ProfileDetails = () => {
   const handleProfileChange = (e) => {
     e.preventDefault();
     console.log(firstNameForm);
+    console.log(lastNameForm);
+    console.log(emailForm);
+    console.log(programForm);
+    console.log(matricNumberForm);
+    console.log(graduationYearForm);
+    console.log(profilePicture);
   };
 
   useEffect(() => {
@@ -123,8 +136,6 @@ const ProfileDetails = () => {
     _id,
   } = details;
 
-  const [firstNameForm, setFirstNameForm] = useState(firstName);
-
   return (
     <Container>
       <Row as="section" className="mb-4">
@@ -159,22 +170,22 @@ const ProfileDetails = () => {
         <h4>Update Profile</h4>
       </Row>
       <div className="mx-auto mb-4" style={{ width: 70 + "%" }}>
-        <Form onSubmit={handleProfileChange}>
+        <Form onSubmit={handleProfileChange} encType="multipart/form-data">
           {
-            // <Alert
-            //   className="alert alert-success"
-            //   variant="success"
-            //   show={successAlert}
-            // >
-            //   {success.map((text) => {
-            //     return (
-            //       <>
-            //         {text}
-            //         <br />
-            //       </>
-            //     );
-            //   })}
-            // </Alert>
+            <Alert
+              className={state.alertClass}
+              variant={state.alertVariant}
+              show={state.showAlert}
+            >
+              {state.errMsg.map((text) => {
+                return (
+                  <>
+                    <small key={text}>{text}</small>
+                    <br />
+                  </>
+                );
+              })}
+            </Alert>
           }
           <Row className="mb-3">
             <Form.Group as={Col} md="6">
@@ -182,8 +193,10 @@ const ProfileDetails = () => {
               <Form.Control
                 type="text"
                 name="firstName"
-                defaultValue={firstName}
+                value={firstNameForm}
                 onChange={(e) => setFirstNameForm(e.target.value)}
+                // defaultValue={firstName}
+                // onClick={(e) => setFirstNameForm(e.target.value)}
               />
             </Form.Group>
             <Form.Group as={Col} md="6">
@@ -191,7 +204,9 @@ const ProfileDetails = () => {
               <Form.Control
                 type="text"
                 name="lastName"
-                defaultValue={lastName}
+                value={lastNameForm}
+                onChange={(e) => setLastNameForm(e.target.value)}
+                // defaultValue={lastName}
               />
             </Form.Group>
           </Row>
@@ -199,12 +214,22 @@ const ProfileDetails = () => {
           <Row className="mb-3">
             <Form.Group as={Col} controlId="formGridEmail" md="6">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" name="email" defaultValue={email} />
+              <Form.Control
+                type="email"
+                name="email"
+                value={emailForm}
+                onChange={(e) => setEmailForm(e.target.value)}
+              />
             </Form.Group>
 
             <Form.Group as={Col} md="6">
               <Form.Label>Program</Form.Label>
-              <Form.Select as="select" name="program">
+              <Form.Select
+                as="select"
+                name="program"
+                value={programForm}
+                onChange={(e) => setProgramForm(e.target.value)}
+              >
                 <option>Select Option</option>
                 {programs.map((prog) => (
                   <option key={prog} selected={prog === program ? true : false}>
@@ -218,12 +243,21 @@ const ProfileDetails = () => {
           <Row className="mb-3">
             <Form.Group as={Col} md="6">
               <Form.Label>Matric Number</Form.Label>
-              <Form.Control name="matricNumber" defaultValue={matricNumber} />
+              <Form.Control
+                name="matricNumber"
+                value={matricNumberForm}
+                onChange={(e) => setMatricNumberForm(e.target.value)}
+              />
             </Form.Group>
 
             <Form.Group as={Col} md="6">
               <Form.Label>Graduation Year</Form.Label>
-              <Form.Select as="select" name="graduationYear">
+              <Form.Select
+                as="select"
+                name="graduationYear"
+                value={graduationYearForm}
+                onChange={(e) => setGraduationYearForm(e.target.value)}
+              >
                 <option>Select Option</option>
                 {graduationYears.map((year) => (
                   <option
@@ -236,24 +270,15 @@ const ProfileDetails = () => {
               </Form.Select>
             </Form.Group>
           </Row>
-
-          {/* <Row>
-            <Form.Group>
-              <Form.File id="formcheck-api-regular">
-                <Form.File.Label>Profile Picture</Form.File.Label>
-                <Form.File.Input name="profilePicture" />
-              </Form.File>
+          <Row>
+            <Form.Group controlId="formFile" className="mb-3">
+              <Form.Label>Profile Picture</Form.Label>
+              <Form.Control
+                type="file"
+                onChange={(e) => setprofilePicture(e.target.files[0])}
+              />
             </Form.Group>
-          </Row> */}
-
-          <Form.Group>
-            <Form.Control
-              type="text"
-              name="id"
-              defaultValue={`${_id}`}
-              style={{ display: "none" }}
-            />
-          </Form.Group>
+          </Row>
 
           <Button variant="primary" type="submit">
             Update Profile
