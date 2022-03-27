@@ -97,11 +97,11 @@ const Header = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
                 <NavItem>
-                  {/* <Image
-                    src={`${props.us.profilePicture}`}
+                  <Image
+                    src={`${user.profilePicture}`}
                     roundedCircle
                     style={{ height: 50 + "px", width: 50 + "px" }}
-                  /> */}
+                  />
                 </NavItem>
               </>
             ) : (
