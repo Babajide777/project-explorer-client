@@ -50,11 +50,11 @@ const ProjectLayout = () => {
       </Row>
       <Row className="bg-light mb-3 text-primary">
         <Col md="1">
-          {/* <Image
-               src={`${scaledImage}`}
-               roundedCircle
-               style={{ height: 50 + "px", width: 50 + "px" }}
-             /> */}
+          <Image
+            src={createdBy.profilePicture}
+            roundedCircle
+            style={{ height: 50 + "px", width: 50 + "px" }}
+          />
         </Col>
         <Col id="project_author" md="3">
           <h6>Created By</h6>
