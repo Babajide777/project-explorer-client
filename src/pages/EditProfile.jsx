@@ -133,25 +133,36 @@ const ProfileDetails = () => {
         graduationYearForm === "Select Option"
       )
     ) {
+      let formData = new FormData();
+      formData.append("id", id);
+      formData.append("firstName", firstNameForm);
+      formData.append("lastName", lastNameForm);
+      formData.append("email", emailForm);
+      formData.append("program", programForm);
+      formData.append("matricNumber", matricNumberForm);
+      formData.append("graduationYear", graduationYearForm);
+      formData.append("profilePicture", profilePicture);
+
+      axios
+        .put("http://localhost:4000/user/profileupdate", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+            dispatch({ type: "SUCCESS", payload: res.data.message });
+            setTimeout(() => {
+              navigate("/");
+            }, 5000);
+          } else {
+            dispatch({
+              type: "USER_UNAUTHETICATION",
+              payload: res.data.message,
+            });
+          }
+        });
     }
-
-    let formData = new FormData();
-    formData.append("firstName", firstNameForm);
-    formData.append("lastName", lastNameForm);
-    formData.append("email", emailForm);
-    formData.append("program", programForm);
-    formData.append("matricNumber", matricNumberForm);
-    formData.append("graduationYear", graduationYearForm);
-    formData.append("profilePicture", profilePicture);
-
-    axios
-      .put("http://localhost:4000/user/profileupdate", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => res.json())
-      .then((res) => console.log(res));
   };
 
   useEffect(() => {
