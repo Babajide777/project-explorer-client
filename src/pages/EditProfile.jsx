@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { reducer1 } from "../reducers/changePasswordReducer";
 import { reducer } from "../reducers/editProfileReducer";
 import Layout from "./shared/Layout";
+import axios from "axios";
 
 const initialState1 = {
   showAlert: false,
@@ -94,13 +95,63 @@ const ProfileDetails = () => {
 
   const handleProfileChange = (e) => {
     e.preventDefault();
-    console.log(firstNameForm);
-    console.log(lastNameForm);
-    console.log(emailForm);
-    console.log(programForm);
-    console.log(matricNumberForm);
-    console.log(graduationYearForm);
-    console.log(profilePicture);
+    dispatch({ type: "REFRESH" });
+    if (firstNameForm === "") {
+      dispatch({ type: "NO_FIRSTNAME_VALUE" });
+    }
+    if (lastNameForm === "") {
+      dispatch({ type: "NO_LASTNAME_VALUE" });
+    }
+    if (emailForm === "") {
+      dispatch({ type: "NO_EMAIL_VALUE" });
+    }
+    if (programForm === "") {
+      dispatch({ type: "INCORRECT_PROGRAM_VALUE" });
+    }
+    if (programForm === "Select Option") {
+      dispatch({ type: "INCORRECT_PROGRAM_VALUE" });
+    }
+    if (matricNumberForm === "") {
+      dispatch({ type: "NO_MATRIC_VALUE" });
+    }
+    if (graduationYearForm === "") {
+      dispatch({ type: "INCORRECT_GRADUATION_YEAR_VALUE" });
+    }
+    if (graduationYearForm === "Select Option") {
+      dispatch({ type: "INCORRECT_GRADUATION_YEAR_VALUE" });
+    }
+
+    if (
+      !(
+        firstNameForm === "" ||
+        lastNameForm === "" ||
+        emailForm === "" ||
+        programForm === "" ||
+        programForm === "Select Option" ||
+        matricNumberForm === "" ||
+        graduationYearForm === "" ||
+        graduationYearForm === "Select Option"
+      )
+    ) {
+    }
+
+    let formData = new FormData();
+    formData.append("firstName", firstNameForm);
+    formData.append("lastName", lastNameForm);
+    formData.append("email", emailForm);
+    formData.append("program", programForm);
+    formData.append("matricNumber", matricNumberForm);
+    formData.append("graduationYear", graduationYearForm);
+    formData.append("profilePicture", profilePicture);
+
+    axios
+      .put("http://localhost:4000/user/profileupdate", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => res.json())
+      .then((res) => console.log(res));
   };
 
   useEffect(() => {
