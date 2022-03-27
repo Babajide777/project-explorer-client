@@ -13,13 +13,12 @@ import {
   NavItem,
   Row,
 } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getToken } from "../../auth";
 
 const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState({});
-  let location = useLocation();
   let navigate = useNavigate();
   useEffect(() => {
     let token = getToken();
@@ -42,10 +41,13 @@ const Header = () => {
           ) {
             navigate(`/continuesignup/${token}`);
           }
-
-          // if (location.pathname === "/login" || "/signup" || "forgotpassword") {
-          //   navigate("/");
-          // }
+          if (
+            window.location.href.includes("login") ||
+            window.location.href.includes("signup") ||
+            window.location.href.includes("forgotpassword")
+          ) {
+            navigate("/");
+          }
         }
       })
       .catch((err) => console.log(err));
