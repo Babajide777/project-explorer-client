@@ -22,7 +22,7 @@ const CreateProjectForm = () => {
 
   useEffect(() => {
     let token = getToken();
-    fetch("http://localhost:4000/home", {
+    fetch("https://jide-explorer.herokuapp.com/home", {
       method: "POST",
       headers: {
         Authorization: `Bearer${JSON.stringify(token)}`,
@@ -59,7 +59,7 @@ const CreateProjectForm = () => {
     let tagss = tags.split("#").filter((tag) => tag !== "");
 
     if (!(name === "" || abstract === "" || author === "" || tags === "")) {
-      fetch("http://localhost:4000/project/create", {
+      fetch("https://jide-explorer.herokuapp.com/project/create", {
         method: "POST",
         body: JSON.stringify({
           name,

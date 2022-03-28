@@ -63,7 +63,7 @@ const ProfileDetails = () => {
         confirmPassword !== newPassword
       )
     ) {
-      fetch("http://localhost:4000/user/profilechangepwd", {
+      fetch("https://jide-explorer.herokuapp.com/user/profilechangepwd", {
         method: "PUT",
         body: JSON.stringify({
           currentPassword,
@@ -144,11 +144,15 @@ const ProfileDetails = () => {
       formData.append("profilePicture", profilePicture);
 
       axios
-        .put("http://localhost:4000/user/profileupdate", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .put(
+          "https://jide-explorer.herokuapp.com/user/profileupdate",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
         .then((res) => {
           if (res.data.success) {
             dispatch({ type: "SUCCESS", payload: res.data.message });
@@ -166,17 +170,17 @@ const ProfileDetails = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:4000/home/programs")
+    fetch("https://jide-explorer.herokuapp.com/home/programs")
       .then((res) => res.json())
       .then((res) => setPrograms(res.data))
       .catch((err) => console.log(err));
 
-    fetch("http://localhost:4000/home/graduationyears")
+    fetch("https://jide-explorer.herokuapp.com/home/graduationyears")
       .then((res) => res.json())
       .then((res) => setGraduationYears(res.data))
       .catch((err) => console.log(err));
 
-    fetch(`http://localhost:4000/user/profiledetails/${id}`)
+    fetch(`https://jide-explorer.herokuapp.com/user/profiledetails/${id}`)
       .then((res) => res.json())
       .then((res) => {
         if (res.success) {

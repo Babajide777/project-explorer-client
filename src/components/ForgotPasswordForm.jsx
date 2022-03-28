@@ -22,7 +22,7 @@ const ForgotPasswordForm = () => {
     } else {
       setShowAlert(false);
       setErrMsg([]);
-      fetch("http://localhost:4000/user/forgotpassword", {
+      fetch("https://jide-explorer.herokuapp.com/user/forgotpassword", {
         method: "POST",
         body: JSON.stringify({ email }),
         headers: {

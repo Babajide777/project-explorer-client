@@ -5,7 +5,7 @@ const Showcase = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/home")
+    fetch("https://jide-explorer.herokuapp.com/home")
       .then((res) => res.json())
       .then((res) => setProjects(res.data))
       .catch((err) => console.log(err));

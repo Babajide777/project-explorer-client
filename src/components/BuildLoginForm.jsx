@@ -11,11 +11,11 @@ const initialState = {
 };
 
 const googleClick = () => {
-  window.open("http://localhost:4000/auth/google", "_self");
+  window.open("https://jide-explorer.herokuapp.com/auth/google", "_self");
 };
 
 const facebookClick = () => {
-  window.open("http://localhost:4000/auth/facebook", "_self");
+  window.open("https://jide-explorer.herokuapp.com/auth/facebook", "_self");
 };
 
 const BuildLoginForm = () => {
@@ -35,7 +35,7 @@ const BuildLoginForm = () => {
     }
 
     if (!(email === "" || password === "")) {
-      fetch("http://localhost:4000/user/login", {
+      fetch("https://jide-explorer.herokuapp.com/user/login", {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: {

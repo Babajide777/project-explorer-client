@@ -40,7 +40,7 @@ const BuildResetPasswordForm = () => {
         password !== confirmPassword
       )
     ) {
-      fetch("http://localhost:4000/user/resetpassword", {
+      fetch("https://jide-explorer.herokuapp.com/user/resetpassword", {
         method: "PUT",
         body: JSON.stringify({ password, confirmPassword, id }),
         headers: {

@@ -24,20 +24,20 @@ const MainSignUp = () => {
   let navigate = useNavigate();
 
   const googleClick = () => {
-    window.open("http://localhost:4000/auth/google", "_self");
+    window.open("https://jide-explorer.herokuapp.com/auth/google", "_self");
   };
 
   const facebookClick = () => {
-    window.open("http://localhost:4000/auth/facebook", "_self");
+    window.open("https://jide-explorer.herokuapp.com/auth/facebook", "_self");
   };
 
   useEffect(() => {
-    fetch("http://localhost:4000/home/programs")
+    fetch("https://jide-explorer.herokuapp.com/home/programs")
       .then((res) => res.json())
       .then((res) => setPrograms(res.data))
       .catch((err) => console.log(err));
 
-    fetch("http://localhost:4000/home/graduationyears")
+    fetch("https://jide-explorer.herokuapp.com/home/graduationyears")
       .then((res) => res.json())
       .then((res) => setGraduationYears(res.data))
       .catch((err) => console.log(err));
@@ -87,7 +87,7 @@ const MainSignUp = () => {
         graduationYear === "Select Option"
       )
     ) {
-      fetch("http://localhost:4000/user/signup", {
+      fetch("https://jide-explorer.herokuapp.com/user/signup", {
         method: "POST",
         body: JSON.stringify({
           firstName,

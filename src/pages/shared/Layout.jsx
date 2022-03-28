@@ -5,7 +5,7 @@ import Footer from "./Footer";
 const Layout = (props) => {
   return (
     <>
-      <Header us={props.us} />
+      <Header />
       <main className="mx-auto">{props.children}</main>
       <Footer />
     </>

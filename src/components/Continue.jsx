@@ -23,17 +23,17 @@ const Continue = () => {
   const { id } = useParams();
   let navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:4000/home/programs")
+    fetch("https://jide-explorer.herokuapp.com/home/programs")
       .then((res) => res.json())
       .then((res) => setPrograms(res.data))
       .catch((err) => console.log(err));
 
-    fetch("http://localhost:4000/home/graduationyears")
+    fetch("https://jide-explorer.herokuapp.com/home/graduationyears")
       .then((res) => res.json())
       .then((res) => setGraduationYears(res.data))
       .catch((err) => console.log(err));
 
-    fetch("http://localhost:4000/user/continuesignup", {
+    fetch("https://jide-explorer.herokuapp.com/user/continuesignup", {
       method: "POST",
       headers: {
         Authorization: `Bearer${JSON.stringify(id)}`,
@@ -85,7 +85,7 @@ const Continue = () => {
         graduationYear === "Select Option"
       )
     ) {
-      fetch("http://localhost:4000/user/updatecontinuesignup", {
+      fetch("https://jide-explorer.herokuapp.com/user/updatecontinuesignup", {
         method: "PUT",
         body: JSON.stringify({
           program,

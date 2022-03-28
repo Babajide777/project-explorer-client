@@ -17,7 +17,7 @@ const ProjectLayout = () => {
   let { id } = useParams();
 
   useEffect(() => {
-    fetch("http://localhost:4000/project/getProject", {
+    fetch("https://jide-explorer.herokuapp.com/project/getProject", {
       method: "POST",
       body: JSON.stringify({ id }),
       headers: {
@@ -29,7 +29,7 @@ const ProjectLayout = () => {
         if (res.success) {
           setProject(res.data);
           fetch(
-            `http://localhost:4000/user/profiledetails/${res.data.createdBy}`
+            `https://jide-explorer.herokuapp.com/user/profiledetails/${res.data.createdBy}`
           )
             .then((res) => res.json())
             .then((res) => setCreatedBy(res.data))

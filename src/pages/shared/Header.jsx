@@ -22,7 +22,7 @@ const Header = () => {
   let navigate = useNavigate();
   useEffect(() => {
     let token = getToken();
-    fetch("http://localhost:4000/home", {
+    fetch("https://jide-explorer.herokuapp.com/home", {
       method: "POST",
       headers: {
         Authorization: `Bearer${JSON.stringify(token)}`,
