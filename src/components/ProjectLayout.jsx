@@ -123,7 +123,15 @@ const ProjectLayout = () => {
               })} */}
             </Card.Body>
             <Card.Footer className="text-muted" id="project_tags">
-              <b>{tags}</b>
+              <b>
+                {/* {tags.map((auz) => {
+                  return (
+                    <>
+                      <Card.Text key={auz}>{auz}</Card.Text>
+                    </>
+                  );
+                })} */}
+              </b>
             </Card.Footer>
           </Card>
 
