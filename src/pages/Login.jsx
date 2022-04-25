@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import Layout from "./shared/Layout";
 import BuildLoginForm from "../components/BuildLoginForm";
+import { AuthContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
-const Login = (props) => {
+const Login = () => {
+  const { isAuthenticated } = useContext(AuthContext);
+  let navigate = useNavigate();
+  if (isAuthenticated) {
+    navigate("/");
+  }
+
   return (
-    <Layout us={props.us}>
+    <Layout>
       <BuildLoginForm></BuildLoginForm>
     </Layout>
   );
