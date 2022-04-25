@@ -12,4 +12,8 @@ const removeToken = () => {
   localStorage.removeItem("user");
 };
 
-export { getToken, setToken, removeToken };
+//"http://localhost:4000/"
+// "https://jide-explorer.herokuapp.com/"
+const url = "http://localhost:4000/";
+
+export { getToken, setToken, removeToken, url };
