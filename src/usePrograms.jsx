@@ -11,7 +11,7 @@ export const usePrograms = () => {
       .then((res) => setPrograms(res.data))
       .catch((err) => console.log(err));
 
-    fetch(`${url}home/graduationyears"`)
+    fetch(`${url}home/graduationyears`)
       .then((res) => res.json())
       .then((res) => setGraduationYears(res.data))
       .catch((err) => console.log(err));
