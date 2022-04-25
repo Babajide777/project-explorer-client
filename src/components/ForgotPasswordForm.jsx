@@ -2,6 +2,7 @@ import React from "react";
 import { Alert, Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { url } from "../auth";
 
 const ForgotPasswordForm = () => {
   const [showAlert, setShowAlert] = useState(false);
@@ -22,7 +23,7 @@ const ForgotPasswordForm = () => {
     } else {
       setShowAlert(false);
       setErrMsg([]);
-      fetch("https://jide-explorer.herokuapp.com/user/forgotpassword", {
+      fetch(`${url}user/forgotpassword`, {
         method: "POST",
         body: JSON.stringify({ email }),
         headers: {

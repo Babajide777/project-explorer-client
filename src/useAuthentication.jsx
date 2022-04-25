@@ -28,10 +28,7 @@ export const useAuthentication = () => {
           ) {
             navigate(`/continuesignup/${token}`);
           }
-          if (
-            window.location.href.includes("signup") ||
-            window.location.href.includes("forgotpassword")
-          ) {
+          if (window.location.href.includes("forgotpassword")) {
             navigate("/");
           }
         }
