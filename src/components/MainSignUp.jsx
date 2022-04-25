@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Facebook, Google } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
-import { setToken } from "../auth";
+import { setToken, url } from "../auth";
 import { reducer } from "../reducers/signUpReducer";
 
 const initialState = {
@@ -24,20 +24,20 @@ const MainSignUp = () => {
   let navigate = useNavigate();
 
   const googleClick = () => {
-    window.open("https://jide-explorer.herokuapp.com/auth/google", "_self");
+    window.open(`${url}auth/google`, "_self");
   };
 
   const facebookClick = () => {
-    window.open("https://jide-explorer.herokuapp.com/auth/facebook", "_self");
+    window.open(`${url}auth/facebook`, "_self");
   };
 
   useEffect(() => {
-    fetch("https://jide-explorer.herokuapp.com/home/programs")
+    fetch(`${url}home/programs`)
       .then((res) => res.json())
       .then((res) => setPrograms(res.data))
       .catch((err) => console.log(err));
 
-    fetch("https://jide-explorer.herokuapp.com/home/graduationyears")
+    fetch(`"https://jide-explorer.herokuapp.com/home/graduationyears"`)
       .then((res) => res.json())
       .then((res) => setGraduationYears(res.data))
       .catch((err) => console.log(err));
