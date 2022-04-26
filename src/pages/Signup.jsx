@@ -1,5 +1,5 @@
 import React from "react";
-import LoginRediredct from "../components/LoginRediredct";
+import LoginRediredct from "../LoginRediredct";
 import MainSignUp from "../components/MainSignUp";
 import Layout from "./shared/Layout";
 

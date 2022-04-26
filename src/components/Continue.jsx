@@ -1,8 +1,9 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Alert, Button, Form } from "react-bootstrap";
-import { setToken } from "../auth";
+import { setToken, url } from "../auth";
 import { reducer } from "../reducers/continueSignupReducer";
+import { usePrograms } from "../usePrograms";
 
 const initialState = {
   showAlert: false,
@@ -12,28 +13,17 @@ const initialState = {
 };
 
 const Continue = () => {
-  const [programs, setPrograms] = useState([]);
-  const [graduationYears, setGraduationYears] = useState([]);
   const [matricNumber, setMatricNumber] = useState("");
   const [program, setProgram] = useState("");
   const [graduationYear, setGraduationYear] = useState("");
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { programs, graduationYears } = usePrograms();
 
   const [user, setUser] = useState({});
   const { id } = useParams();
   let navigate = useNavigate();
   useEffect(() => {
-    fetch("https://jide-explorer.herokuapp.com/home/programs")
-      .then((res) => res.json())
-      .then((res) => setPrograms(res.data))
-      .catch((err) => console.log(err));
-
-    fetch("https://jide-explorer.herokuapp.com/home/graduationyears")
-      .then((res) => res.json())
-      .then((res) => setGraduationYears(res.data))
-      .catch((err) => console.log(err));
-
-    fetch("https://jide-explorer.herokuapp.com/user/continuesignup", {
+    fetch(`${url}user/continuesignup`, {
       method: "POST",
       headers: {
         Authorization: `Bearer${JSON.stringify(id)}`,
@@ -54,7 +44,7 @@ const Continue = () => {
           // navigate("/errorsignup");
         }
       });
-  }, []);
+  }, [navigate, id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

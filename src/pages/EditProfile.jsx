@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "./shared/Layout";
 import ProfileDetails from "../components/ProfileDetails";
-import { NonLoginRedirect } from "../components/LoginRediredct";
+import NonLoginRedirect from "../NonLoginRedirect";
 
 const EditProfile = () => {
   NonLoginRedirect("/login");

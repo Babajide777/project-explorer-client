@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "./shared/Layout";
 import BuildLoginForm from "../components/BuildLoginForm";
-import LoginRediredct from "../components/LoginRediredct";
+import LoginRediredct from "../LoginRediredct";
 
 const Login = () => {
   LoginRediredct("/");

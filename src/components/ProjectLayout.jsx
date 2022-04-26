@@ -9,6 +9,7 @@ import {
   Image,
 } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import { url } from "../auth";
 
 const ProjectLayout = () => {
   const [project, setProject] = useState({});
@@ -17,7 +18,7 @@ const ProjectLayout = () => {
   let { id } = useParams();
 
   useEffect(() => {
-    fetch("https://jide-explorer.herokuapp.com/project/getProject", {
+    fetch(`${url}project/getProject`, {
       method: "POST",
       body: JSON.stringify({ id }),
       headers: {
@@ -28,9 +29,7 @@ const ProjectLayout = () => {
       .then((res) => {
         if (res.success) {
           setProject(res.data);
-          fetch(
-            `https://jide-explorer.herokuapp.com/user/profiledetails/${res.data.createdBy}`
-          )
+          fetch(`${url}user/profiledetails/${res.data.createdBy}`)
             .then((res) => res.json())
             .then((res) => setCreatedBy(res.data))
             .catch((err) => console.log(err));

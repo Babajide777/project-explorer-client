@@ -1,5 +1,5 @@
 import CreateProjectForm from "../components/CreateProjectForm";
-import { NonLoginRedirect } from "../components/LoginRediredct";
+import NonLoginRedirect from "../NonLoginRedirect";
 import Layout from "./shared/Layout";
 
 const CreateProject = () => {
