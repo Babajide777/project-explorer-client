@@ -5,7 +5,6 @@ import LoginRediredct from "../components/LoginRediredct";
 
 const Login = () => {
   LoginRediredct("/");
-
   return (
     <Layout>
       <BuildLoginForm></BuildLoginForm>
