@@ -5,6 +5,7 @@ import { useReducer } from "react";
 import { reducer } from "../reducers/forgotPasswordReducer";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { url } from "../auth";
 
 const initialState = {
   showAlert: false,
@@ -40,7 +41,7 @@ const BuildResetPasswordForm = () => {
         password !== confirmPassword
       )
     ) {
-      fetch("https://jide-explorer.herokuapp.com/user/resetpassword", {
+      fetch(`${url}user/resetpassword`, {
         method: "PUT",
         body: JSON.stringify({ password, confirmPassword, id }),
         headers: {

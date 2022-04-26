@@ -1,8 +1,9 @@
-import React, { useReducer, useEffect, useState } from "react";
-import { getToken } from "../auth";
+import React, { useReducer, useEffect, useState, useContext } from "react";
+import { getToken, url } from "../auth";
 import { useNavigate } from "react-router-dom";
 import { Alert, Button, Form } from "react-bootstrap";
 import { reducer } from "../reducers/createProjectReducer";
+import { AuthContext } from "../App";
 
 const initialState = {
   showAlert: false,
@@ -16,28 +17,10 @@ const CreateProjectForm = () => {
   const [abstract, setAbstract] = useState("");
   const [author, setAuthor] = useState("");
   const [tags, setTags] = useState("");
-  const [user, setUser] = useState({});
   const [state, dispatch] = useReducer(reducer, initialState);
   let navigate = useNavigate();
-
-  useEffect(() => {
-    let token = getToken();
-    fetch("https://jide-explorer.herokuapp.com/home", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer${JSON.stringify(token)}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.success) {
-          setUser(res.data);
-        } else {
-          navigate("/login");
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  const { user } = useContext(AuthContext);
+  console.log(user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,7 +42,7 @@ const CreateProjectForm = () => {
     let tagss = tags.split("#").filter((tag) => tag !== "");
 
     if (!(name === "" || abstract === "" || author === "" || tags === "")) {
-      fetch("https://jide-explorer.herokuapp.com/project/create", {
+      fetch(`${url}project/create`, {
         method: "POST",
         body: JSON.stringify({
           name,

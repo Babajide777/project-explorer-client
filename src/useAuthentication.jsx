@@ -28,9 +28,6 @@ export const useAuthentication = () => {
           ) {
             navigate(`/continuesignup/${token}`);
           }
-          if (window.location.href.includes("forgotpassword")) {
-            navigate("/");
-          }
         }
       })
       .catch((err) => console.log(err));
