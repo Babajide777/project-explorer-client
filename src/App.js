@@ -11,6 +11,7 @@ import Logout from "./pages/Logout";
 import ContinueSignUp from "./pages/ContinueSignUp";
 import { createContext } from "react";
 import { useAuthentication } from "./useAuthentication";
+import Search from "./pages/Search";
 
 export const AuthContext = createContext();
 
@@ -40,6 +41,7 @@ function App() {
           path="/continuesignup/:id"
           element={<ContinueSignUp></ContinueSignUp>}
         />
+        <Route path="/search" element={<Search></Search>}></Route>
       </Routes>
     </AuthContext.Provider>
   );
