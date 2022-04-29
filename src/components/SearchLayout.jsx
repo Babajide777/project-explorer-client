@@ -9,6 +9,17 @@ const SearchLayout = () => {
   const [searchPages, setSearchPages] = useState(0);
   const [totalSearchCount, setTotalSearchCount] = useState(0);
   const [returnedSearchResult, setReturnedSearchResult] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchterm, setSearchterm] = useState("");
+  const [searchtype, setSearchtype] = useState("");
+
+  let hrefPrevious = `${url}project/search/?searchterm=${searchterm}&searchtype=${searchtype}&page=${
+    currentPage - 1
+  }`;
+
+  let hrefNext = `${url}project/search/?searchterm=${searchterm}&searchtype=${searchtype}&page=${
+    currentPage + 1
+  }`;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,10 +32,14 @@ const SearchLayout = () => {
           setReturnedSearchResult(res.data.returnedSearchResult);
           setTotalSearchCount(res.data.totalSearchCount);
           setSearchPages(res.data.searchPages);
+          setCurrentPage(res.data.currentPage);
+          setSearchterm(res.data.searchterm);
+          setSearchtype(res.data.searchtype);
         } else {
           setReturnedSearchResult([]);
           setSearchPages(0);
           setTotalSearchCount(0);
+          setCurrentPage(1);
         }
       })
       .catch((err) => console.log(err));
@@ -93,19 +108,23 @@ const SearchLayout = () => {
       </section>
 
       <div className="container d-flex justify-content-center">
-        <Pagination>
-          <Pagination.First />
-          <Pagination.Prev />
-          {/* <Pagination.Item>{1}</Pagination.Item>
-
-          <Pagination.Item>{2}</Pagination.Item>
-          <Pagination.Item active>{3}</Pagination.Item>
-          <Pagination.Item>{4}</Pagination.Item>
-
-          <Pagination.Item>{5}</Pagination.Item> */}
-          <Pagination.Next />
-          <Pagination.Last />
-        </Pagination>
+        {searchPages <= 0 ? (
+          <></>
+        ) : (
+          <Pagination>
+            <Pagination.Prev
+              href={hrefPrevious}
+              className={currentPage === 1 ? "disabled" : ""}
+            />
+            <Pagination.Item>
+              page {currentPage} of {searchPages}
+            </Pagination.Item>
+            <Pagination.Next
+              href={hrefNext}
+              className={currentPage === searchPages ? "disabled" : ""}
+            />
+          </Pagination>
+        )}
       </div>
     </>
   );
