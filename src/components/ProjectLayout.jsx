@@ -9,6 +9,7 @@ import {
   Image,
 } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import { url } from "../auth";
 
 const ProjectLayout = () => {
   const [project, setProject] = useState({});
@@ -17,7 +18,7 @@ const ProjectLayout = () => {
   let { id } = useParams();
 
   useEffect(() => {
-    fetch("https://jide-explorer.herokuapp.com/project/getProject", {
+    fetch(`${url}project/getProject`, {
       method: "POST",
       body: JSON.stringify({ id }),
       headers: {
@@ -28,9 +29,19 @@ const ProjectLayout = () => {
       .then((res) => {
         if (res.success) {
           setProject(res.data);
-          fetch(
-            `https://jide-explorer.herokuapp.com/user/profiledetails/${res.data.createdBy}`
-          )
+
+          fetch(`${url}project/updatelastvisited`, {
+            method: "POST",
+            body: JSON.stringify({ id }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+
+          fetch(`${url}user/profiledetails/${res.data.createdBy}`)
             .then((res) => res.json())
             .then((res) => setCreatedBy(res.data))
             .catch((err) => console.log(err));
@@ -114,23 +125,23 @@ const ProjectLayout = () => {
               <b>Author(s)</b>
             </Card.Header>
             <Card.Body>
-              {/* {authors.map((auz) => {
+              {authors?.map((auz, i) => {
                 return (
                   <>
-                    <Card.Text key={auz}>{auz}</Card.Text>
+                    <Card.Text key={i}>{auz}</Card.Text>
                   </>
                 );
-              })} */}
+              })}
             </Card.Body>
             <Card.Footer className="text-muted" id="project_tags">
               <b>
-                {/* {tags.map((auz) => {
+                {tags?.map((auz, i) => {
                   return (
                     <>
-                      <Card.Text key={auz}>{auz}</Card.Text>
+                      <small key={i}>#{auz}, </small>
                     </>
                   );
-                })} */}
+                })}
               </b>
             </Card.Footer>
           </Card>

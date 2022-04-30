@@ -1,9 +1,10 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useReducer, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Facebook, Google } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
-import { setToken } from "../auth";
+import { setToken, url } from "../auth";
 import { reducer } from "../reducers/signUpReducer";
+import { usePrograms } from "../usePrograms";
 
 const initialState = {
   showAlert: false,
@@ -11,8 +12,6 @@ const initialState = {
 };
 
 const MainSignUp = () => {
-  const [programs, setPrograms] = useState([]);
-  const [graduationYears, setGraduationYears] = useState([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,27 +20,17 @@ const MainSignUp = () => {
   const [graduationYear, setGraduationYear] = useState("");
   const [matricNumber, setMatricNumber] = useState("");
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { programs, graduationYears } = usePrograms();
+
   let navigate = useNavigate();
 
   const googleClick = () => {
-    window.open("https://jide-explorer.herokuapp.com/auth/google", "_self");
+    window.open(`${url}auth/google`, "_self");
   };
 
   const facebookClick = () => {
-    window.open("https://jide-explorer.herokuapp.com/auth/facebook", "_self");
+    window.open(`${url}auth/facebook`, "_self");
   };
-
-  useEffect(() => {
-    fetch("https://jide-explorer.herokuapp.com/home/programs")
-      .then((res) => res.json())
-      .then((res) => setPrograms(res.data))
-      .catch((err) => console.log(err));
-
-    fetch("https://jide-explorer.herokuapp.com/home/graduationyears")
-      .then((res) => res.json())
-      .then((res) => setGraduationYears(res.data))
-      .catch((err) => console.log(err));
-  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -87,7 +76,7 @@ const MainSignUp = () => {
         graduationYear === "Select Option"
       )
     ) {
-      fetch("https://jide-explorer.herokuapp.com/user/signup", {
+      fetch(`${url}user/signup`, {
         method: "POST",
         body: JSON.stringify({
           firstName,

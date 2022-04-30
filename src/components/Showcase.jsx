@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardGroup } from "react-bootstrap";
+import { url } from "../auth";
 
 const Showcase = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetch("https://jide-explorer.herokuapp.com/home")
+    fetch(`${url}home`)
       .then((res) => res.json())
       .then((res) => setProjects(res.data))
       .catch((err) => console.log(err));
@@ -18,7 +19,7 @@ const Showcase = () => {
           const { abstract, authors, _id, name, tags } = project;
 
           return (
-            <Card key={_id} border="primary" className="col-md-6">
+            <Card key={_id} className="col-md-6 mx-3 border border-primary">
               <Card.Body>
                 <Card.Title>
                   <Card.Link href={`/project/${_id}`}>{name}</Card.Link>

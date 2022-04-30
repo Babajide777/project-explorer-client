@@ -1,9 +1,11 @@
 import CreateProjectForm from "../components/CreateProjectForm";
+import NonLoginRedirect from "../NonLoginRedirect";
 import Layout from "./shared/Layout";
 
-const CreateProject = (props) => {
+const CreateProject = () => {
+  NonLoginRedirect("/login");
   return (
-    <Layout us={props.us}>
+    <Layout>
       <CreateProjectForm></CreateProjectForm>
     </Layout>
   );

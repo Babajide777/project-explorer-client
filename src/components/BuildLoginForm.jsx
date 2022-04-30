@@ -2,7 +2,7 @@ import React, { useReducer, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Facebook, Google } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
-import { setToken } from "../auth";
+import { setToken, url } from "../auth";
 import { reducer } from "../reducers/loginReducer";
 
 const initialState = {
@@ -11,11 +11,11 @@ const initialState = {
 };
 
 const googleClick = () => {
-  window.open("https://jide-explorer.herokuapp.com/auth/google", "_self");
+  window.open(`${url}auth/google`, "_self");
 };
 
 const facebookClick = () => {
-  window.open("https://jide-explorer.herokuapp.com/auth/facebook", "_self");
+  window.open(`${url}auth/facebook`, "_self");
 };
 
 const BuildLoginForm = () => {
@@ -35,7 +35,7 @@ const BuildLoginForm = () => {
     }
 
     if (!(email === "" || password === "")) {
-      fetch("https://jide-explorer.herokuapp.com/user/login", {
+      fetch(`${url}user/login`, {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: {

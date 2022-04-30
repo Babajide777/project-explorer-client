@@ -3,9 +3,9 @@ import Jumbo from "../components/Jumbo";
 import Showcase from "../components/Showcase";
 import Layout from "./shared/Layout";
 
-const Home = (props) => {
+const Home = () => {
   return (
-    <Layout us={props.us}>
+    <Layout>
       <Jumbo></Jumbo>
       <Showcase></Showcase>
     </Layout>

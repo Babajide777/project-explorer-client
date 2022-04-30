@@ -2,9 +2,9 @@ import React from "react";
 import BuildResetPasswordForm from "../components/BuildResetPasswordForm";
 import Layout from "./shared/Layout";
 
-const ResetPassword = (props) => {
+const ResetPassword = () => {
   return (
-    <Layout us={props.us}>
+    <Layout>
       <BuildResetPasswordForm></BuildResetPasswordForm>
     </Layout>
   );

@@ -2,9 +2,9 @@ import React from "react";
 import ProjectLayout from "../components/ProjectLayout";
 import Layout from "./shared/Layout";
 
-const Project = (props) => {
+const Project = () => {
   return (
-    <Layout us={props.us}>
+    <Layout>
       <ProjectLayout></ProjectLayout>
     </Layout>
   );

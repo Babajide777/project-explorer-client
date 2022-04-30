@@ -1,10 +1,12 @@
 import React from "react";
+import LoginRediredct from "../LoginRediredct";
 import MainSignUp from "../components/MainSignUp";
 import Layout from "./shared/Layout";
 
-const Signup = (props) => {
+const Signup = () => {
+  LoginRediredct("/");
   return (
-    <Layout us={props.us}>
+    <Layout>
       <MainSignUp></MainSignUp>
     </Layout>
   );

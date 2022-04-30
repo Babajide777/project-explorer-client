@@ -1,6 +1,4 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useContext, useRef } from "react";
 import {
   Button,
   Col,
@@ -14,44 +12,17 @@ import {
   Row,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { getToken } from "../../auth";
+import { AuthContext } from "../../App";
 
 const Header = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState({});
+  const { isAuthenticated, user } = useContext(AuthContext);
+  const searchTerm = useRef(null);
   let navigate = useNavigate();
-  useEffect(() => {
-    let token = getToken();
-    fetch("https://jide-explorer.herokuapp.com/home", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer${JSON.stringify(token)}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.success) {
-          setIsAuthenticated(true);
-          setUser(res.data);
-          const { program, graduationYear } = res.data;
-          if (
-            program === undefined &&
-            graduationYear === undefined &&
-            !window.location.href.includes("continuesignup")
-          ) {
-            navigate(`/continuesignup/${token}`);
-          }
-          if (
-            window.location.href.includes("login") ||
-            window.location.href.includes("signup") ||
-            window.location.href.includes("forgotpassword")
-          ) {
-            navigate("/");
-          }
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/search/?searchterm=${searchTerm.current.value}&searchtype=name`);
+  };
 
   return (
     <header>
@@ -73,10 +44,17 @@ const Header = () => {
                     type="text"
                     placeholder="Search Projects"
                     className="mr-sm-2"
+                    ref={searchTerm}
                   />
                 </Col>
                 <Col>
-                  <Button variant="outline-light">Search</Button>
+                  <Button
+                    variant="outline-light"
+                    type="submit"
+                    onClick={handleSubmit}
+                  >
+                    Search
+                  </Button>
                 </Col>
               </Row>
             </Form>

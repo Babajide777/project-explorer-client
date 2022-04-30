@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -9,10 +9,15 @@ import EditProfile from "./pages/EditProfile";
 import Project from "./pages/Project";
 import Logout from "./pages/Logout";
 import ContinueSignUp from "./pages/ContinueSignUp";
+import { createContext } from "react";
+import { useAuthentication } from "./useAuthentication";
+import Search from "./pages/Search";
+
+export const AuthContext = createContext();
 
 function App() {
   return (
-    <BrowserRouter>
+    <AuthContext.Provider value={useAuthentication()}>
       <Routes>
         <Route path="/" element={<Home />} exact />
         <Route path="/login" element={<Login />} />
@@ -36,8 +41,9 @@ function App() {
           path="/continuesignup/:id"
           element={<ContinueSignUp></ContinueSignUp>}
         />
+        <Route path="/search/*" element={<Search></Search>}></Route>
       </Routes>
-    </BrowserRouter>
+    </AuthContext.Provider>
   );
 }
 
