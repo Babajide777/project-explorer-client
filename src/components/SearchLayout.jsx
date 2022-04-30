@@ -119,9 +119,8 @@ const SearchLayout = () => {
             return (
               <Card
                 key={_id}
-                border="primary"
                 style={{ maxWidth: "18rem" }}
-                className="mx-3"
+                className="mx-3 border border-primary"
               >
                 <Card.Body>
                   <Card.Title>
