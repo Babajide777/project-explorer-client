@@ -14,6 +14,7 @@ const SearchLayout = () => {
   const [searchterm, setSearchterm] = useState("");
   const [searchtype, setSearchtype] = useState("");
   const [searchParams] = useSearchParams();
+  const [noSearchDisplay, setNoSearchDisplay] = useState("d-none");
 
   useEffect(() => {
     const theTerm = searchParams.get("searchterm");
@@ -35,11 +36,13 @@ const SearchLayout = () => {
           setCurrentPage(res.data.currentPage);
           setSearchterm(res.data.searchterm);
           setSearchtype(res.data.searchtype);
+          setNoSearchDisplay("d-none");
         } else {
           setReturnedSearchResult([]);
           setSearchPages(0);
           setTotalSearchCount(0);
           setCurrentPage(1);
+          setNoSearchDisplay("text-primary");
         }
       })
       .catch((err) => console.log(err));
@@ -55,6 +58,7 @@ const SearchLayout = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setNoSearchDisplay("d-none");
     fetch(
       `${url}project/search/?searchterm=${searchTerm.current.value}&searchtype=${searchType.current.value}`
     )
@@ -72,6 +76,7 @@ const SearchLayout = () => {
           setSearchPages(0);
           setTotalSearchCount(0);
           setCurrentPage(1);
+          setNoSearchDisplay("text-primary");
         }
       })
       .catch((err) => console.log(err));
@@ -112,9 +117,12 @@ const SearchLayout = () => {
         <h5 className=" text-primary mb-3">
           All projects <span>({totalSearchCount} results)</span>
         </h5>
+
+        <h3 className={noSearchDisplay}>No search result returned</h3>
+
         <CardGroup className="showcase mx-5">
           {returnedSearchResult.map((project) => {
-            const { abstract, authors, _id, name, tags } = project;
+            const { abstract, authors, _id, name, tags, lastVited } = project;
 
             return (
               <Card
@@ -127,10 +135,27 @@ const SearchLayout = () => {
                     <Card.Link href={`/project/${_id}`}>{name}</Card.Link>
                   </Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">
-                    {authors}
+                    {authors?.map((auz, i) => {
+                      return (
+                        <>
+                          <small key={i}>{auz}, </small>
+                        </>
+                      );
+                    })}
                   </Card.Subtitle>
                   <Card.Text>{abstract.substring(0, 100)}...</Card.Text>
-                  <Card.Link href="#">{tags}</Card.Link>
+                  <p className="text-muted fs-6">
+                    Last visited {new Date(lastVited).toLocaleDateString()}
+                  </p>
+                  <Card.Link href="#">
+                    {tags?.map((auz, i) => {
+                      return (
+                        <>
+                          <small key={i}>#{auz}, </small>
+                        </>
+                      );
+                    })}
+                  </Card.Link>
                 </Card.Body>
               </Card>
             );
