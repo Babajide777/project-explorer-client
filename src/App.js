@@ -41,7 +41,7 @@ function App() {
           path="/continuesignup/:id"
           element={<ContinueSignUp></ContinueSignUp>}
         />
-        <Route path="/search" element={<Search></Search>}></Route>
+        <Route path="/search/*" element={<Search></Search>}></Route>
       </Routes>
     </AuthContext.Provider>
   );

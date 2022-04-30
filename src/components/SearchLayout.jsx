@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { url } from "../auth";
 import { Card, CardGroup, Pagination } from "react-bootstrap";
+import { useSearchParams } from "react-router-dom";
 
 const SearchLayout = () => {
   const searchTerm = useRef(null);
@@ -12,12 +13,43 @@ const SearchLayout = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchterm, setSearchterm] = useState("");
   const [searchtype, setSearchtype] = useState("");
+  const [searchParams] = useSearchParams();
 
-  let hrefPrevious = `${url}project/search/?searchterm=${searchterm}&searchtype=${searchtype}&page=${
+  useEffect(() => {
+    const theTerm = searchParams.get("searchterm");
+    const theType = searchParams.get("searchtype");
+    const thePage = searchParams.get("page");
+    let theUrl;
+
+    thePage
+      ? (theUrl = `${url}project/search/?searchterm=${theTerm}&searchtype=${theType}&page=${thePage}`)
+      : (theUrl = `${url}project/search/?searchterm=${theTerm}&searchtype=${theType}`);
+
+    fetch(theUrl)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success) {
+          setReturnedSearchResult(res.data.returnedSearchResult);
+          setTotalSearchCount(res.data.totalSearchCount);
+          setSearchPages(res.data.searchPages);
+          setCurrentPage(res.data.currentPage);
+          setSearchterm(res.data.searchterm);
+          setSearchtype(res.data.searchtype);
+        } else {
+          setReturnedSearchResult([]);
+          setSearchPages(0);
+          setTotalSearchCount(0);
+          setCurrentPage(1);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [searchParams]);
+
+  let hrefPrevious = `/search/?searchterm=${searchterm}&searchtype=${searchtype}&page=${
     currentPage - 1
   }`;
 
-  let hrefNext = `${url}project/search/?searchterm=${searchterm}&searchtype=${searchtype}&page=${
+  let hrefNext = `/search/?searchterm=${searchterm}&searchtype=${searchtype}&page=${
     currentPage + 1
   }`;
 

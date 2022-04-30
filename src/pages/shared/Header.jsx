@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import {
   Button,
   Col,
@@ -11,10 +11,18 @@ import {
   NavItem,
   Row,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../App";
 
 const Header = () => {
   const { isAuthenticated, user } = useContext(AuthContext);
+  const searchTerm = useRef(null);
+  let navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/search/?searchterm=${searchTerm.current.value}&searchtype=name`);
+  };
 
   return (
     <header>
@@ -36,10 +44,17 @@ const Header = () => {
                     type="text"
                     placeholder="Search Projects"
                     className="mr-sm-2"
+                    ref={searchTerm}
                   />
                 </Col>
                 <Col>
-                  <Button variant="outline-light">Search</Button>
+                  <Button
+                    variant="outline-light"
+                    type="submit"
+                    onClick={handleSubmit}
+                  >
+                    Search
+                  </Button>
                 </Col>
               </Row>
             </Form>
