@@ -14,6 +14,6 @@ const removeToken = () => {
 
 //"http://localhost:4000/"
 // "https://jide-explorer.herokuapp.com/"
-const url = "http://localhost:4000/";
+const url = "https://jide-explorer.herokuapp.com/";
 
 export { getToken, setToken, removeToken, url };
